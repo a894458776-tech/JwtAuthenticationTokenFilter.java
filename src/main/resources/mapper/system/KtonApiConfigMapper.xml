@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonApiConfigMapper">
+    
+    <resultMap type="KtonApiConfig" id="KtonApiConfigResult">
+        <result property="userId"    column="user_id"    />
+        <result property="merchantCode"    column="merchant_code"    />
+        <result property="merchantToken"    column="merchant_token"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonApiConfigVo">
+        select user_id, merchant_code, merchant_token, create_time, update_time from kton_api_config
+    </sql>
+
+    <select id="selectKtonApiConfigList" parameterType="KtonApiConfig" resultMap="KtonApiConfigResult">
+        <include refid="selectKtonApiConfigVo"/>
+        <where>  
+            <if test="merchantCode != null  and merchantCode != ''"> and merchant_code = #{merchantCode}</if>
+            <if test="merchantToken != null  and merchantToken != ''"> and merchant_token = #{merchantToken}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonApiConfigByUserId" parameterType="Long" resultMap="KtonApiConfigResult">
+        <include refid="selectKtonApiConfigVo"/>
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertKtonApiConfig" parameterType="KtonApiConfig">
+        insert into kton_api_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="merchantCode != null and merchantCode != ''">merchant_code,</if>
+            <if test="merchantToken != null and merchantToken != ''">merchant_token,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="merchantCode != null and merchantCode != ''">#{merchantCode},</if>
+            <if test="merchantToken != null and merchantToken != ''">#{merchantToken},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonApiConfig" parameterType="KtonApiConfig">
+        update kton_api_config
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantCode != null and merchantCode != ''">merchant_code = #{merchantCode},</if>
+            <if test="merchantToken != null and merchantToken != ''">merchant_token = #{merchantToken},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+
+    <delete id="deleteKtonApiConfigByUserId" parameterType="Long">
+        delete from kton_api_config where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteKtonApiConfigByUserIds" parameterType="String">
+        delete from kton_api_config where user_id in 
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+</mapper>

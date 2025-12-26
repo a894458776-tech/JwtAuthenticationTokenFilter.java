@@ -1,0 +1,8 @@
+01:16:49.129 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[s5yuantou][Success][登录成功]
+01:28:04.635 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[admin][Error][验证码已失效]
+01:28:14.561 [schedule-pool-2] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[admin][Success][登录成功]
+04:30:17.924 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+04:44:22.755 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+04:59:21.589 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+05:19:05.540 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+05:24:31.448 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====

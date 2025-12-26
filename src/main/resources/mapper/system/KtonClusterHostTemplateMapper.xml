@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonClusterHostTemplateMapper">
+    
+    <resultMap type="KtonClusterHostTemplate" id="KtonClusterHostTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="clusterId"    column="cluster_id"    />
+        <result property="refId"    column="ref_id"    />
+        <result property="model"    column="model"    />
+        <result property="cpuCores"    column="cpu_cores"    />
+        <result property="cpuModel"    column="cpu_model"    />
+        <result property="memory"    column="memory"    />
+        <result property="diskCapacity"    column="disk_capacity"    />
+        <result property="diskModel"    column="disk_model"    />
+        <result property="ioWrite"    column="io_write"    />
+        <result property="ioRead"    column="io_read"    />
+        <result property="bandwidth"    column="bandwidth"    />
+        <result property="internetTraffic"    column="internet_traffic"    />
+        <result property="ipV4"    column="ip_v4"    />
+        <result property="ipV6"    column="ip_v6"    />
+        <result property="priceMonthly"    column="price_monthly"    />
+        <result property="priceQuarterly"    column="price_quarterly"    />
+        <result property="priceSemiAnnually"    column="price_semi_annually"    />
+        <result property="priceAnnually"    column="price_annually"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonClusterHostTemplateVo">
+        select id, cluster_id, ref_id, model, cpu_cores, cpu_model, memory, disk_capacity, disk_model, io_write, io_read, bandwidth, internet_traffic, ip_v4, ip_v6, price_monthly, price_quarterly, price_semi_annually, price_annually, create_time, update_time from kton_cluster_host_template
+    </sql>
+
+    <select id="selectKtonClusterHostTemplateList" parameterType="KtonClusterHostTemplate" resultMap="KtonClusterHostTemplateResult">
+        <include refid="selectKtonClusterHostTemplateVo"/>
+        <where>  
+            <if test="clusterId != null "> and cluster_id = #{clusterId}</if>
+            <if test="refId != null  and refId != ''"> and ref_id = #{refId}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="cpuCores != null "> and cpu_cores = #{cpuCores}</if>
+            <if test="cpuModel != null  and cpuModel != ''"> and cpu_model = #{cpuModel}</if>
+            <if test="memory != null "> and memory = #{memory}</if>
+            <if test="diskCapacity != null "> and disk_capacity = #{diskCapacity}</if>
+            <if test="diskModel != null  and diskModel != ''"> and disk_model = #{diskModel}</if>
+            <if test="ioWrite != null "> and io_write = #{ioWrite}</if>
+            <if test="ioRead != null "> and io_read = #{ioRead}</if>
+            <if test="bandwidth != null "> and bandwidth = #{bandwidth}</if>
+            <if test="internetTraffic != null "> and internet_traffic = #{internetTraffic}</if>
+            <if test="ipV4 != null  and ipV4 != ''"> and ip_v4 = #{ipV4}</if>
+            <if test="ipV6 != null  and ipV6 != ''"> and ip_v6 = #{ipV6}</if>
+            <if test="priceMonthly != null "> and price_monthly = #{priceMonthly}</if>
+            <if test="priceQuarterly != null "> and price_quarterly = #{priceQuarterly}</if>
+            <if test="priceSemiAnnually != null "> and price_semi_annually = #{priceSemiAnnually}</if>
+            <if test="priceAnnually != null "> and price_annually = #{priceAnnually}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonClusterHostTemplateById" parameterType="Long" resultMap="KtonClusterHostTemplateResult">
+        <include refid="selectKtonClusterHostTemplateVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonClusterHostTemplate" parameterType="KtonClusterHostTemplate" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_cluster_host_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clusterId != null">cluster_id,</if>
+            <if test="refId != null">ref_id,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="cpuCores != null">cpu_cores,</if>
+            <if test="cpuModel != null and cpuModel != ''">cpu_model,</if>
+            <if test="memory != null">memory,</if>
+            <if test="diskCapacity != null">disk_capacity,</if>
+            <if test="diskModel != null and diskModel != ''">disk_model,</if>
+            <if test="ioWrite != null">io_write,</if>
+            <if test="ioRead != null">io_read,</if>
+            <if test="bandwidth != null">bandwidth,</if>
+            <if test="internetTraffic != null">internet_traffic,</if>
+            <if test="ipV4 != null and ipV4 != ''">ip_v4,</if>
+            <if test="ipV6 != null and ipV6 != ''">ip_v6,</if>
+            <if test="priceMonthly != null">price_monthly,</if>
+            <if test="priceQuarterly != null">price_quarterly,</if>
+            <if test="priceSemiAnnually != null">price_semi_annually,</if>
+            <if test="priceAnnually != null">price_annually,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clusterId != null">#{clusterId},</if>
+            <if test="refId != null">#{refId},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="cpuCores != null">#{cpuCores},</if>
+            <if test="cpuModel != null and cpuModel != ''">#{cpuModel},</if>
+            <if test="memory != null">#{memory},</if>
+            <if test="diskCapacity != null">#{diskCapacity},</if>
+            <if test="diskModel != null and diskModel != ''">#{diskModel},</if>
+            <if test="ioWrite != null">#{ioWrite},</if>
+            <if test="ioRead != null">#{ioRead},</if>
+            <if test="bandwidth != null">#{bandwidth},</if>
+            <if test="internetTraffic != null">#{internetTraffic},</if>
+            <if test="ipV4 != null and ipV4 != ''">#{ipV4},</if>
+            <if test="ipV6 != null and ipV6 != ''">#{ipV6},</if>
+            <if test="priceMonthly != null">#{priceMonthly},</if>
+            <if test="priceQuarterly != null">#{priceQuarterly},</if>
+            <if test="priceSemiAnnually != null">#{priceSemiAnnually},</if>
+            <if test="priceAnnually != null">#{priceAnnually},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonClusterHostTemplate" parameterType="KtonClusterHostTemplate">
+        update kton_cluster_host_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clusterId != null">cluster_id = #{clusterId},</if>
+            <if test="refId != null">ref_id = #{refId},</if>
+            <if test="model != null and model != ''">model = #{model},</if>
+            <if test="cpuCores != null">cpu_cores = #{cpuCores},</if>
+            <if test="cpuModel != null and cpuModel != ''">cpu_model = #{cpuModel},</if>
+            <if test="memory != null">memory = #{memory},</if>
+            <if test="diskCapacity != null">disk_capacity = #{diskCapacity},</if>
+            <if test="diskModel != null and diskModel != ''">disk_model = #{diskModel},</if>
+            <if test="ioWrite != null">io_write = #{ioWrite},</if>
+            <if test="ioRead != null">io_read = #{ioRead},</if>
+            <if test="bandwidth != null">bandwidth = #{bandwidth},</if>
+            <if test="internetTraffic != null">internet_traffic = #{internetTraffic},</if>
+            <if test="ipV4 != null and ipV4 != ''">ip_v4 = #{ipV4},</if>
+            <if test="ipV6 != null and ipV6 != ''">ip_v6 = #{ipV6},</if>
+            <if test="priceMonthly != null">price_monthly = #{priceMonthly},</if>
+            <if test="priceQuarterly != null">price_quarterly = #{priceQuarterly},</if>
+            <if test="priceSemiAnnually != null">price_semi_annually = #{priceSemiAnnually},</if>
+            <if test="priceAnnually != null">price_annually = #{priceAnnually},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonClusterHostTemplateById" parameterType="Long">
+        delete from kton_cluster_host_template where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonClusterHostTemplateByIds" parameterType="String">
+        delete from kton_cluster_host_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

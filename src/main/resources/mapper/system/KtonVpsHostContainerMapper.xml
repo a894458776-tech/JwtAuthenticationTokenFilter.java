@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonVpsHostContainerMapper">
+    
+    <resultMap type="KtonVpsHostContainer" id="KtonVpsHostContainerResult">
+        <result property="id"    column="id"    />
+        <result property="hostId"    column="host_id"    />
+        <result property="clusterId"    column="cluster_id"    />
+        <result property="hostTemplateId"    column="host_template_id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="containerId"    column="container_id"    />
+        <result property="sshAccount"    column="ssh_account"    />
+        <result property="sshPwd"    column="ssh_pwd"    />
+        <result property="sshPort"    column="ssh_port"    />
+        <result property="nodePort"    column="node_port"    />
+        <result property="status"    column="status"    />
+        <result property="expireDate"    column="expire_date"    />
+        <result property="type"    column="type"    />
+        <result property="vpsIp"    column="vps_ip"    />
+        <result property="containerName"    column="container_name"    />
+        <result property="containerIp"    column="container_ip"    />
+        <result property="remark"    column="remark"    />
+        <result property="errorMessage"    column="error_message"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonVpsHostContainerVo">
+        select id, host_id, cluster_id, host_template_id, merchant_id, container_id, ssh_account, ssh_pwd, ssh_port, node_port, status, expire_date, type, vps_ip, container_name, container_ip, remark, error_message, create_time, update_time from kton_vps_host_container
+    </sql>
+
+    <select id="selectKtonVpsHostContainerList" parameterType="KtonVpsHostContainer" resultMap="KtonVpsHostContainerResult">
+        <include refid="selectKtonVpsHostContainerVo"/>
+        <where>  
+            <if test="hostId != null "> and host_id = #{hostId}</if>
+            <if test="clusterId != null "> and cluster_id = #{clusterId}</if>
+            <if test="hostTemplateId != null "> and host_template_id = #{hostTemplateId}</if>
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="containerId != null  and containerId != ''"> and container_id = #{containerId}</if>
+            <if test="sshAccount != null  and sshAccount != ''"> and ssh_account = #{sshAccount}</if>
+            <if test="sshPwd != null  and sshPwd != ''"> and ssh_pwd = #{sshPwd}</if>
+            <if test="sshPort != null "> and ssh_port = #{sshPort}</if>
+            <if test="nodePort != null "> and node_port = #{nodePort}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="expireDate != null "> and expire_date = #{expireDate}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="vpsIp != null  and vpsIp != ''"> and vps_ip = #{vpsIp}</if>
+            <if test="containerName != null  and containerName != ''"> and container_name like concat('%', #{containerName}, '%')</if>
+            <if test="containerIp != null  and containerIp != ''"> and container_ip = #{containerIp}</if>
+            <if test="errorMessage != null  and errorMessage != ''"> and error_message = #{errorMessage}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonVpsHostContainerById" parameterType="Long" resultMap="KtonVpsHostContainerResult">
+        <include refid="selectKtonVpsHostContainerVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonVpsHostContainer" parameterType="KtonVpsHostContainer" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_vps_host_container
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hostId != null">host_id,</if>
+            <if test="clusterId != null">cluster_id,</if>
+            <if test="hostTemplateId != null">host_template_id,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="containerId != null">container_id,</if>
+            <if test="sshAccount != null">ssh_account,</if>
+            <if test="sshPwd != null">ssh_pwd,</if>
+            <if test="sshPort != null">ssh_port,</if>
+            <if test="nodePort != null">node_port,</if>
+            <if test="status != null">status,</if>
+            <if test="expireDate != null">expire_date,</if>
+            <if test="type != null">type,</if>
+            <if test="vpsIp != null">vps_ip,</if>
+            <if test="containerName != null">container_name,</if>
+            <if test="containerIp != null">container_ip,</if>
+            <if test="remark != null">remark,</if>
+            <if test="errorMessage != null">error_message,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hostId != null">#{hostId},</if>
+            <if test="clusterId != null">#{clusterId},</if>
+            <if test="hostTemplateId != null">#{hostTemplateId},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="containerId != null">#{containerId},</if>
+            <if test="sshAccount != null">#{sshAccount},</if>
+            <if test="sshPwd != null">#{sshPwd},</if>
+            <if test="sshPort != null">#{sshPort},</if>
+            <if test="nodePort != null">#{nodePort},</if>
+            <if test="status != null">#{status},</if>
+            <if test="expireDate != null">#{expireDate},</if>
+            <if test="type != null">#{type},</if>
+            <if test="vpsIp != null">#{vpsIp},</if>
+            <if test="containerName != null">#{containerName},</if>
+            <if test="containerIp != null">#{containerIp},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="errorMessage != null">#{errorMessage},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonVpsHostContainer" parameterType="KtonVpsHostContainer">
+        update kton_vps_host_container
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hostId != null">host_id = #{hostId},</if>
+            <if test="clusterId != null">cluster_id = #{clusterId},</if>
+            <if test="hostTemplateId != null">host_template_id = #{hostTemplateId},</if>
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="containerId != null">container_id = #{containerId},</if>
+            <if test="sshAccount != null">ssh_account = #{sshAccount},</if>
+            <if test="sshPwd != null">ssh_pwd = #{sshPwd},</if>
+            <if test="sshPort != null">ssh_port = #{sshPort},</if>
+            <if test="nodePort != null">node_port = #{nodePort},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="expireDate != null">expire_date = #{expireDate},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="vpsIp != null">vps_ip = #{vpsIp},</if>
+            <if test="containerName != null">container_name = #{containerName},</if>
+            <if test="containerIp != null">container_ip = #{containerIp},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="errorMessage != null">error_message = #{errorMessage},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonVpsHostContainerById" parameterType="Long">
+        delete from kton_vps_host_container where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonVpsHostContainerByIds" parameterType="String">
+        delete from kton_vps_host_container where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

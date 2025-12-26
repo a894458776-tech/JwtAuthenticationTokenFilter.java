@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsAccountUsageDetailsMapper">
+    
+    <resultMap type="KtonIpDynamicsAccountUsageDetails" id="KtonIpDynamicsAccountUsageDetailsResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="accountId"    column="account_id"    />
+        <result property="host"    column="host"    />
+        <result property="port"    column="port"    />
+        <result property="dataDatetime"    column="data_datetime"    />
+        <result property="requests"    column="requests"    />
+        <result property="traffic"    column="traffic"    />
+        <result property="extraTraffic"    column="extra_traffic"    />
+        <result property="status"    column="status"    />
+        <result property="message"    column="message"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsAccountUsageDetailsVo">
+        select id, merchant_id, account_id, host, port, data_datetime, requests, traffic, extra_traffic, status, message, create_time, update_time from kton_ip_dynamics_account_usage_details
+    </sql>
+
+    <select id="selectKtonIpDynamicsAccountUsageDetailsList" parameterType="KtonIpDynamicsAccountUsageDetails" resultMap="KtonIpDynamicsAccountUsageDetailsResult">
+        <include refid="selectKtonIpDynamicsAccountUsageDetailsVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="accountId != null "> and account_id = #{accountId}</if>
+            <if test="host != null  and host != ''"> and host = #{host}</if>
+            <if test="port != null  and port != ''"> and port = #{port}</if>
+            <if test="dataDatetime != null "> and data_datetime = #{dataDatetime}</if>
+            <if test="requests != null "> and requests = #{requests}</if>
+            <if test="traffic != null "> and traffic = #{traffic}</if>
+            <if test="extraTraffic != null  and extraTraffic != ''"> and extra_traffic = #{extraTraffic}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="message != null  and message != ''"> and message = #{message}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsAccountUsageDetailsById" parameterType="Long" resultMap="KtonIpDynamicsAccountUsageDetailsResult">
+        <include refid="selectKtonIpDynamicsAccountUsageDetailsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsAccountUsageDetails" parameterType="KtonIpDynamicsAccountUsageDetails" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_dynamics_account_usage_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="host != null">host,</if>
+            <if test="port != null">port,</if>
+            <if test="dataDatetime != null">data_datetime,</if>
+            <if test="requests != null">requests,</if>
+            <if test="traffic != null">traffic,</if>
+            <if test="extraTraffic != null">extra_traffic,</if>
+            <if test="status != null">status,</if>
+            <if test="message != null">message,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="host != null">#{host},</if>
+            <if test="port != null">#{port},</if>
+            <if test="dataDatetime != null">#{dataDatetime},</if>
+            <if test="requests != null">#{requests},</if>
+            <if test="traffic != null">#{traffic},</if>
+            <if test="extraTraffic != null">#{extraTraffic},</if>
+            <if test="status != null">#{status},</if>
+            <if test="message != null">#{message},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsAccountUsageDetails" parameterType="KtonIpDynamicsAccountUsageDetails">
+        update kton_ip_dynamics_account_usage_details
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="host != null">host = #{host},</if>
+            <if test="port != null">port = #{port},</if>
+            <if test="dataDatetime != null">data_datetime = #{dataDatetime},</if>
+            <if test="requests != null">requests = #{requests},</if>
+            <if test="traffic != null">traffic = #{traffic},</if>
+            <if test="extraTraffic != null">extra_traffic = #{extraTraffic},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="message != null">message = #{message},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsAccountUsageDetailsById" parameterType="Long">
+        delete from kton_ip_dynamics_account_usage_details where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsAccountUsageDetailsByIds" parameterType="String">
+        delete from kton_ip_dynamics_account_usage_details where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

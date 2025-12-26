@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonVpsHostConfigPerformanceMapper">
+    
+    <resultMap type="KtonVpsHostConfigPerformance" id="KtonVpsHostConfigPerformanceResult">
+        <result property="id"    column="id"    />
+        <result property="hostId"    column="host_id"    />
+        <result property="model"    column="model"    />
+        <result property="cpuCores"    column="cpu_cores"    />
+        <result property="cpuModel"    column="cpu_model"    />
+        <result property="memory"    column="memory"    />
+        <result property="diskCapacity"    column="disk_capacity"    />
+        <result property="diskModel"    column="disk_model"    />
+        <result property="ioWrite"    column="io_write"    />
+        <result property="ioRead"    column="io_read"    />
+        <result property="bandwidth"    column="bandwidth"    />
+        <result property="internetTraffic"    column="internet_traffic"    />
+        <result property="ipV4"    column="ip_v4"    />
+        <result property="ipV6"    column="ip_v6"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonVpsHostConfigPerformanceVo">
+        select id, host_id, model, cpu_cores, cpu_model, memory, disk_capacity, disk_model, io_write, io_read, bandwidth, internet_traffic, ip_v4, ip_v6, create_time, update_time from kton_vps_host_config_performance
+    </sql>
+
+    <select id="selectKtonVpsHostConfigPerformanceList" parameterType="KtonVpsHostConfigPerformance" resultMap="KtonVpsHostConfigPerformanceResult">
+        <include refid="selectKtonVpsHostConfigPerformanceVo"/>
+        <where>  
+            <if test="hostId != null "> and host_id = #{hostId}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="cpuCores != null "> and cpu_cores = #{cpuCores}</if>
+            <if test="cpuModel != null  and cpuModel != ''"> and cpu_model = #{cpuModel}</if>
+            <if test="memory != null "> and memory = #{memory}</if>
+            <if test="diskCapacity != null "> and disk_capacity = #{diskCapacity}</if>
+            <if test="diskModel != null  and diskModel != ''"> and disk_model = #{diskModel}</if>
+            <if test="ioWrite != null "> and io_write = #{ioWrite}</if>
+            <if test="ioRead != null "> and io_read = #{ioRead}</if>
+            <if test="bandwidth != null "> and bandwidth = #{bandwidth}</if>
+            <if test="internetTraffic != null "> and internet_traffic = #{internetTraffic}</if>
+            <if test="ipV4 != null  and ipV4 != ''"> and ip_v4 = #{ipV4}</if>
+            <if test="ipV6 != null  and ipV6 != ''"> and ip_v6 = #{ipV6}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonVpsHostConfigPerformanceById" parameterType="Long" resultMap="KtonVpsHostConfigPerformanceResult">
+        <include refid="selectKtonVpsHostConfigPerformanceVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonVpsHostConfigPerformance" parameterType="KtonVpsHostConfigPerformance" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_vps_host_config_performance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hostId != null">host_id,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="cpuCores != null">cpu_cores,</if>
+            <if test="cpuModel != null and cpuModel != ''">cpu_model,</if>
+            <if test="memory != null">memory,</if>
+            <if test="diskCapacity != null">disk_capacity,</if>
+            <if test="diskModel != null and diskModel != ''">disk_model,</if>
+            <if test="ioWrite != null">io_write,</if>
+            <if test="ioRead != null">io_read,</if>
+            <if test="bandwidth != null">bandwidth,</if>
+            <if test="internetTraffic != null">internet_traffic,</if>
+            <if test="ipV4 != null and ipV4 != ''">ip_v4,</if>
+            <if test="ipV6 != null and ipV6 != ''">ip_v6,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hostId != null">#{hostId},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="cpuCores != null">#{cpuCores},</if>
+            <if test="cpuModel != null and cpuModel != ''">#{cpuModel},</if>
+            <if test="memory != null">#{memory},</if>
+            <if test="diskCapacity != null">#{diskCapacity},</if>
+            <if test="diskModel != null and diskModel != ''">#{diskModel},</if>
+            <if test="ioWrite != null">#{ioWrite},</if>
+            <if test="ioRead != null">#{ioRead},</if>
+            <if test="bandwidth != null">#{bandwidth},</if>
+            <if test="internetTraffic != null">#{internetTraffic},</if>
+            <if test="ipV4 != null and ipV4 != ''">#{ipV4},</if>
+            <if test="ipV6 != null and ipV6 != ''">#{ipV6},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonVpsHostConfigPerformance" parameterType="KtonVpsHostConfigPerformance">
+        update kton_vps_host_config_performance
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hostId != null">host_id = #{hostId},</if>
+            <if test="model != null and model != ''">model = #{model},</if>
+            <if test="cpuCores != null">cpu_cores = #{cpuCores},</if>
+            <if test="cpuModel != null and cpuModel != ''">cpu_model = #{cpuModel},</if>
+            <if test="memory != null">memory = #{memory},</if>
+            <if test="diskCapacity != null">disk_capacity = #{diskCapacity},</if>
+            <if test="diskModel != null and diskModel != ''">disk_model = #{diskModel},</if>
+            <if test="ioWrite != null">io_write = #{ioWrite},</if>
+            <if test="ioRead != null">io_read = #{ioRead},</if>
+            <if test="bandwidth != null">bandwidth = #{bandwidth},</if>
+            <if test="internetTraffic != null">internet_traffic = #{internetTraffic},</if>
+            <if test="ipV4 != null and ipV4 != ''">ip_v4 = #{ipV4},</if>
+            <if test="ipV6 != null and ipV6 != ''">ip_v6 = #{ipV6},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonVpsHostConfigPerformanceById" parameterType="Long">
+        delete from kton_vps_host_config_performance where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonVpsHostConfigPerformanceByIds" parameterType="String">
+        delete from kton_vps_host_config_performance where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

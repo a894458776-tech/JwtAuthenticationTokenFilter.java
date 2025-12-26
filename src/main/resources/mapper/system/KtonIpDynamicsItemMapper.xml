@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsItemMapper">
+    
+    <resultMap type="KtonIpDynamicsItem" id="KtonIpDynamicsItemResult">
+        <result property="id"    column="id"    />
+        <result property="refId"    column="ref_id"    />
+        <result property="price"    column="price"    />
+        <result property="currency"    column="currency"    />
+        <result property="days"    column="days"    />
+        <result property="discount"    column="discount"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsItemVo">
+        select id, ref_id, price, currency, days, discount, status, create_time, update_time from kton_ip_dynamics_item
+    </sql>
+
+    <select id="selectKtonIpDynamicsItemList" parameterType="KtonIpDynamicsItem" resultMap="KtonIpDynamicsItemResult">
+        <include refid="selectKtonIpDynamicsItemVo"/>
+        <where>  
+            <if test="refId != null "> and ref_id = #{refId}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="days != null "> and days = #{days}</if>
+            <if test="discount != null "> and discount = #{discount}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsItemById" parameterType="Long" resultMap="KtonIpDynamicsItemResult">
+        <include refid="selectKtonIpDynamicsItemVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsItem" parameterType="KtonIpDynamicsItem" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_dynamics_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="refId != null">ref_id,</if>
+            <if test="price != null">price,</if>
+            <if test="currency != null and currency != ''">currency,</if>
+            <if test="days != null">days,</if>
+            <if test="discount != null">discount,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="refId != null">#{refId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="currency != null and currency != ''">#{currency},</if>
+            <if test="days != null">#{days},</if>
+            <if test="discount != null">#{discount},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsItem" parameterType="KtonIpDynamicsItem">
+        update kton_ip_dynamics_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="refId != null">ref_id = #{refId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="currency != null and currency != ''">currency = #{currency},</if>
+            <if test="days != null">days = #{days},</if>
+            <if test="discount != null">discount = #{discount},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsItemById" parameterType="Long">
+        delete from kton_ip_dynamics_item where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsItemByIds" parameterType="String">
+        delete from kton_ip_dynamics_item where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

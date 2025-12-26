@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMerchantWalletItemMapper">
+    
+    <resultMap type="KtonMerchantWalletItem" id="KtonMerchantWalletItemResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="type"    column="type"    />
+        <result property="amount"    column="amount"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMerchantWalletItemVo">
+        select id, merchant_id, type, amount, create_time, update_time from kton_merchant_wallet_item
+    </sql>
+
+    <select id="selectKtonMerchantWalletItemList" parameterType="KtonMerchantWalletItem" resultMap="KtonMerchantWalletItemResult">
+        <include refid="selectKtonMerchantWalletItemVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMerchantWalletItemById" parameterType="Long" resultMap="KtonMerchantWalletItemResult">
+        <include refid="selectKtonMerchantWalletItemVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonMerchantWalletItem" parameterType="KtonMerchantWalletItem">
+        insert into kton_merchant_wallet_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="type != null">type,</if>
+            <if test="amount != null">amount,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="type != null">#{type},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMerchantWalletItem" parameterType="KtonMerchantWalletItem">
+        update kton_merchant_wallet_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonMerchantWalletItemById" parameterType="Long">
+        delete from kton_merchant_wallet_item where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonMerchantWalletItemByIds" parameterType="String">
+        delete from kton_merchant_wallet_item where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

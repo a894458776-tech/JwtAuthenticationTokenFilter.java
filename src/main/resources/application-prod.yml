@@ -1,0 +1,80 @@
+# Spring配置
+spring:
+  datasource:
+    druid:
+      # 主库数据源
+      master:
+        url: jdbc:mysql://10.5.4.12:13306/kylin_kton?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: kylin_kton
+        password: ir5cEPEyXHjfc2xd
+#        url: jdbc:mysql://47.250.39.39:13306/kylin_kton?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#        username: kylin
+#        password: Kylin#20250115
+      # 从库数据源
+      slave:
+        # 从数据源开关/默认关闭
+        enabled: false
+        url:
+        username:
+        password:
+  # redis 配置
+  redis:
+    # 地址
+    host: 10.5.4.12
+    # 端口，默认为6379
+    port: 16379
+    # 数据库索引
+    database: 0
+    # 密码
+    password: iplt202506
+    # 连接超时时间
+    timeout: 10s
+
+api:
+  ipnux:
+    userId: 1866825255666978816
+    token: 836383d7d798439db895fe3ce54d7fab
+    endpointHost: gw.dataimpulse.com
+    endpointPort: 823
+  dataimpulse:
+    account: a894458776@gmail.com
+    password: Hins34372766++
+    endpointHost: gw.dataimpulse.com
+    endpointHttpPort: 823
+    endpointHttpsPort: 823
+    endpointSocks5Port: 824
+  netnut:
+    account: justinhu@kingstar-media.com
+    password: Ue8(Ni&D/zz]zT4
+    endpointHost: gw.netnut.net
+    endpointHttpPort: 80
+    endpointHttpsPort: 443
+    endpointSocks5Port: 9595
+  oxylabs:
+    account: testuser_EAxSw
+    password: sKwY2dQ5=WMuU
+    mainAccount: testuser_EAxSw
+    mainAccountPassword: sKwY2dQ5=WMuU
+    endpointHost: pr.oxylabs.io
+    endpointHttpPort: 7777
+    endpointHttpsPort: 7777
+    endpointSocks5Port: 7777
+mail:
+  host: smtp.163.com       # 163邮箱SMTP服务器地址
+  port: 465               # 163邮箱SMTP服务器SSL端口
+  username: kingstargz2025@163.com  # 163邮箱地址
+  #  password: BH4Gb0yOuAW6Icz        # 163邮箱授权码
+  password: UXqyet4uiVp3xCXi        # 163邮箱授权码
+  properties:
+    mail:
+      smtp:
+        auth: true        # 启用SMTP身份验证
+        ssl:
+          enable: true    # 启用SSL加密
+          trust: smtp.163.com  # 信任163的SMTP服务器证书
+        connectiontimeout: 5000  # 连接超时时间（毫秒）
+        timeout: 5000           # 读取超时时间（毫秒）
+        writetimeout: 5000      # 写入超时时间（毫秒）
+source:
+  conf:
+    assignTimes: 2

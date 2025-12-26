@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpStaticPoolItemMapper">
+    
+    <resultMap type="KtonIpStaticPoolItem" id="KtonIpStaticPoolItemResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="poolId"    column="pool_id"    />
+        <result property="ip"    column="ip"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpStaticPoolItemVo">
+        select id, merchant_id, pool_id, ip, create_time, update_time from kton_ip_static_pool_item
+    </sql>
+
+    <select id="selectKtonIpStaticPoolItemList" parameterType="KtonIpStaticPoolItem" resultMap="KtonIpStaticPoolItemResult">
+        <include refid="selectKtonIpStaticPoolItemVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="poolId != null "> and pool_id = #{poolId}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpStaticPoolItemById" parameterType="Long" resultMap="KtonIpStaticPoolItemResult">
+        <include refid="selectKtonIpStaticPoolItemVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpStaticPoolItem" parameterType="KtonIpStaticPoolItem" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_static_pool_item
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="poolId != null">pool_id,</if>
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="poolId != null">#{poolId},</if>
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpStaticPoolItem" parameterType="KtonIpStaticPoolItem">
+        update kton_ip_static_pool_item
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="poolId != null">pool_id = #{poolId},</if>
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpStaticPoolItemById" parameterType="Long">
+        delete from kton_ip_static_pool_item where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpStaticPoolItemByIds" parameterType="String">
+        delete from kton_ip_static_pool_item where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

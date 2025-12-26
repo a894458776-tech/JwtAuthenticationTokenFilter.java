@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMerchantWalletStatisMapper">
+    
+    <resultMap type="KtonMerchantWalletStatis" id="KtonMerchantWalletStatisResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="statisType"    column="statis_type"    />
+        <result property="year"    column="year"    />
+        <result property="month"    column="month"    />
+        <result property="date"    column="date"    />
+        <result property="statisDate"    column="statis_date"    />
+        <result property="amount"    column="amount"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMerchantWalletStatisVo">
+        select id, merchant_id, statis_type, year, month, date, statis_date, amount, create_time, update_time from kton_merchant_wallet_statis
+    </sql>
+
+    <select id="selectKtonMerchantWalletStatisList" parameterType="KtonMerchantWalletStatis" resultMap="KtonMerchantWalletStatisResult">
+        <include refid="selectKtonMerchantWalletStatisVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="statisType != null  and statisType != ''"> and statis_type = #{statisType}</if>
+            <if test="year != null "> and year = #{year}</if>
+            <if test="month != null "> and month = #{month}</if>
+            <if test="date != null "> and date = #{date}</if>
+            <if test="statisDate != null "> and statis_date = #{statisDate}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMerchantWalletStatisById" parameterType="Long" resultMap="KtonMerchantWalletStatisResult">
+        <include refid="selectKtonMerchantWalletStatisVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonMerchantWalletStatis" parameterType="KtonMerchantWalletStatis" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_merchant_wallet_statis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="statisType != null">statis_type,</if>
+            <if test="year != null">year,</if>
+            <if test="month != null">month,</if>
+            <if test="date != null">date,</if>
+            <if test="statisDate != null">statis_date,</if>
+            <if test="amount != null">amount,</if>
+            <if test="createTime != null and createTime != ''">create_time,</if>
+            <if test="updateTime != null and updateTime != ''">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="statisType != null">#{statisType},</if>
+            <if test="year != null">#{year},</if>
+            <if test="month != null">#{month},</if>
+            <if test="date != null">#{date},</if>
+            <if test="statisDate != null">#{statisDate},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="createTime != null and createTime != ''">#{createTime},</if>
+            <if test="updateTime != null and updateTime != ''">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMerchantWalletStatis" parameterType="KtonMerchantWalletStatis">
+        update kton_merchant_wallet_statis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="statisType != null">statis_type = #{statisType},</if>
+            <if test="year != null">year = #{year},</if>
+            <if test="month != null">month = #{month},</if>
+            <if test="date != null">date = #{date},</if>
+            <if test="statisDate != null">statis_date = #{statisDate},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="createTime != null and createTime != ''">create_time = #{createTime},</if>
+            <if test="updateTime != null and updateTime != ''">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonMerchantWalletStatisById" parameterType="Long">
+        delete from kton_merchant_wallet_statis where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonMerchantWalletStatisByIds" parameterType="String">
+        delete from kton_merchant_wallet_statis where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

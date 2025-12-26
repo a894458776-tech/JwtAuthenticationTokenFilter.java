@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsAccountBalanceMapper">
+    
+    <resultMap type="KtonIpDynamicsAccountBalance" id="KtonIpDynamicsAccountBalanceResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="accountId"    column="account_id"    />
+        <result property="balance"    column="balance"    />
+        <result property="balanceFormat"    column="balance_format"    />
+        <result property="balanceTotal"    column="balance_total"    />
+        <result property="balanceTotalFormat"    column="balance_total_format"    />
+        <result property="balanceUsed"    column="balance_used"    />
+        <result property="balanceUsedFormat"    column="balance_used_format"    />
+        <result property="threadsUsed"    column="threads_used"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsAccountBalanceVo">
+        select id, merchant_id, account_id, balance, balance_format, balance_total, balance_total_format, balance_used, balance_used_format, threads_used, create_time, update_time from kton_ip_dynamics_account_balance
+    </sql>
+
+    <select id="selectKtonIpDynamicsAccountBalanceList" parameterType="KtonIpDynamicsAccountBalance" resultMap="KtonIpDynamicsAccountBalanceResult">
+        <include refid="selectKtonIpDynamicsAccountBalanceVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="accountId != null "> and account_id = #{accountId}</if>
+            <if test="balance != null "> and balance = #{balance}</if>
+            <if test="balanceFormat != null  and balanceFormat != ''"> and balance_format = #{balanceFormat}</if>
+            <if test="balanceTotal != null  and balanceTotal != ''"> and balance_total = #{balanceTotal}</if>
+            <if test="balanceTotalFormat != null  and balanceTotalFormat != ''"> and balance_total_format = #{balanceTotalFormat}</if>
+            <if test="balanceUsed != null  and balanceUsed != ''"> and balance_used = #{balanceUsed}</if>
+            <if test="balanceUsedFormat != null  and balanceUsedFormat != ''"> and balance_used_format = #{balanceUsedFormat}</if>
+            <if test="threadsUsed != null  and threadsUsed != ''"> and threads_used = #{threadsUsed}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsAccountBalanceById" parameterType="Long" resultMap="KtonIpDynamicsAccountBalanceResult">
+        <include refid="selectKtonIpDynamicsAccountBalanceVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsAccountBalance" parameterType="KtonIpDynamicsAccountBalance" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_dynamics_account_balance
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="balance != null">balance,</if>
+            <if test="balanceFormat != null">balance_format,</if>
+            <if test="balanceTotal != null">balance_total,</if>
+            <if test="balanceTotalFormat != null">balance_total_format,</if>
+            <if test="balanceUsed != null">balance_used,</if>
+            <if test="balanceUsedFormat != null">balance_used_format,</if>
+            <if test="threadsUsed != null">threads_used,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="balance != null">#{balance},</if>
+            <if test="balanceFormat != null">#{balanceFormat},</if>
+            <if test="balanceTotal != null">#{balanceTotal},</if>
+            <if test="balanceTotalFormat != null">#{balanceTotalFormat},</if>
+            <if test="balanceUsed != null">#{balanceUsed},</if>
+            <if test="balanceUsedFormat != null">#{balanceUsedFormat},</if>
+            <if test="threadsUsed != null">#{threadsUsed},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsAccountBalance" parameterType="KtonIpDynamicsAccountBalance">
+        update kton_ip_dynamics_account_balance
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="balance != null">balance = #{balance},</if>
+            <if test="balanceFormat != null">balance_format = #{balanceFormat},</if>
+            <if test="balanceTotal != null">balance_total = #{balanceTotal},</if>
+            <if test="balanceTotalFormat != null">balance_total_format = #{balanceTotalFormat},</if>
+            <if test="balanceUsed != null">balance_used = #{balanceUsed},</if>
+            <if test="balanceUsedFormat != null">balance_used_format = #{balanceUsedFormat},</if>
+            <if test="threadsUsed != null">threads_used = #{threadsUsed},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsAccountBalanceById" parameterType="Long">
+        delete from kton_ip_dynamics_account_balance where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsAccountBalanceByIds" parameterType="String">
+        delete from kton_ip_dynamics_account_balance where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

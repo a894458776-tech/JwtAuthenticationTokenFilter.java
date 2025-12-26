@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMerchantMapper">
+    
+    <resultMap type="KtonMerchant" id="KtonMerchantResult">
+        <result property="id"    column="id"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="name"    column="name"    />
+        <result property="address"    column="address"    />
+        <result property="city"    column="city"    />
+        <result property="country"    column="country"    />
+        <result property="zipCode"    column="zip_code"    />
+        <result property="email"    column="email"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMerchantVo">
+        select id, company_name, name, address, city, country, zip_code, email, create_time, update_time from kton_merchant
+    </sql>
+
+    <select id="selectKtonMerchantList" parameterType="KtonMerchant" resultMap="KtonMerchantResult">
+        <include refid="selectKtonMerchantVo"/>
+        <where>  
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="zipCode != null  and zipCode != ''"> and zip_code = #{zipCode}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMerchantById" parameterType="Long" resultMap="KtonMerchantResult">
+        <include refid="selectKtonMerchantVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonMerchant" parameterType="KtonMerchant">
+        insert into kton_merchant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="companyName != null and companyName != ''">company_name,</if>
+            <if test="name != null and name != ''">name,</if>
+            <if test="address != null and address != ''">address,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="country != null and country != ''">country,</if>
+            <if test="zipCode != null and zipCode != ''">zip_code,</if>
+            <if test="email != null">email,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="companyName != null and companyName != ''">#{companyName},</if>
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="address != null and address != ''">#{address},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="country != null and country != ''">#{country},</if>
+            <if test="zipCode != null and zipCode != ''">#{zipCode},</if>
+            <if test="email != null">#{email},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMerchant" parameterType="KtonMerchant">
+        update kton_merchant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="companyName != null and companyName != ''">company_name = #{companyName},</if>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="country != null and country != ''">country = #{country},</if>
+            <if test="zipCode != null and zipCode != ''">zip_code = #{zipCode},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonMerchantById" parameterType="Long">
+        delete from kton_merchant where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonMerchantByIds" parameterType="String">
+        delete from kton_merchant where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonSourceMapper">
+    
+    <resultMap type="KtonSource" id="KtonSourceResult">
+        <result property="id"    column="id"    />
+        <result property="sourceCode"    column="source_code"    />
+        <result property="sourceName"    column="source_name"    />
+        <result property="sourceUsername"    column="source_username"    />
+        <result property="sourcePassword"    column="source_password"    />
+        <result property="companyName"    column="company_name"    />
+        <result property="address"    column="address"    />
+        <result property="city"    column="city"    />
+        <result property="country"    column="country"    />
+        <result property="zipCode"    column="zip_code"    />
+        <result property="email"    column="email"    />
+        <result property="isStatic"    column="is_static"    />
+        <result property="isDynamics"    column="is_dynamics"    />
+        <result property="isIdc"    column="is_idc"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonSourceVo">
+        select id, source_code, source_name, source_username, source_password, company_name, address, city, country, zip_code, email, is_static, is_dynamics, is_idc, create_time, update_time from kton_source
+    </sql>
+
+    <select id="selectKtonSourceList" parameterType="KtonSource" resultMap="KtonSourceResult">
+        <include refid="selectKtonSourceVo"/>
+        <where>  
+            <if test="sourceCode != null  and sourceCode != ''"> and source_code = #{sourceCode}</if>
+            <if test="sourceName != null  and sourceName != ''"> and source_name like concat('%', #{sourceName}, '%')</if>
+            <if test="sourceUsername != null  and sourceUsername != ''"> and source_username like concat('%', #{sourceUsername}, '%')</if>
+            <if test="sourcePassword != null  and sourcePassword != ''"> and source_password = #{sourcePassword}</if>
+            <if test="companyName != null  and companyName != ''"> and company_name like concat('%', #{companyName}, '%')</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="country != null  and country != ''"> and country = #{country}</if>
+            <if test="zipCode != null  and zipCode != ''"> and zip_code = #{zipCode}</if>
+            <if test="email != null  and email != ''"> and email = #{email}</if>
+            <if test="isStatic != null "> and is_static = #{isStatic}</if>
+            <if test="isDynamics != null "> and is_dynamics = #{isDynamics}</if>
+            <if test="isIdc != null "> and is_idc = #{isIdc}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonSourceById" parameterType="Long" resultMap="KtonSourceResult">
+        <include refid="selectKtonSourceVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonSource" parameterType="KtonSource" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_source
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sourceCode != null and sourceCode != ''">source_code,</if>
+            <if test="sourceName != null and sourceName != ''">source_name,</if>
+            <if test="sourceUsername != null and sourceUsername != ''">source_username,</if>
+            <if test="sourcePassword != null and sourcePassword != ''">source_password,</if>
+            <if test="companyName != null">company_name,</if>
+            <if test="address != null">address,</if>
+            <if test="city != null">city,</if>
+            <if test="country != null">country,</if>
+            <if test="zipCode != null">zip_code,</if>
+            <if test="email != null">email,</if>
+            <if test="isStatic != null">is_static,</if>
+            <if test="isDynamics != null">is_dynamics,</if>
+            <if test="isIdc != null">is_idc,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sourceCode != null and sourceCode != ''">#{sourceCode},</if>
+            <if test="sourceName != null and sourceName != ''">#{sourceName},</if>
+            <if test="sourceUsername != null and sourceUsername != ''">#{sourceUsername},</if>
+            <if test="sourcePassword != null and sourcePassword != ''">#{sourcePassword},</if>
+            <if test="companyName != null">#{companyName},</if>
+            <if test="address != null">#{address},</if>
+            <if test="city != null">#{city},</if>
+            <if test="country != null">#{country},</if>
+            <if test="zipCode != null">#{zipCode},</if>
+            <if test="email != null">#{email},</if>
+            <if test="isStatic != null">#{isStatic},</if>
+            <if test="isDynamics != null">#{isDynamics},</if>
+            <if test="isIdc != null">#{isIdc},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonSource" parameterType="KtonSource">
+        update kton_source
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sourceCode != null and sourceCode != ''">source_code = #{sourceCode},</if>
+            <if test="sourceName != null and sourceName != ''">source_name = #{sourceName},</if>
+            <if test="sourceUsername != null and sourceUsername != ''">source_username = #{sourceUsername},</if>
+            <if test="sourcePassword != null and sourcePassword != ''">source_password = #{sourcePassword},</if>
+            <if test="companyName != null">company_name = #{companyName},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="country != null">country = #{country},</if>
+            <if test="zipCode != null">zip_code = #{zipCode},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="isStatic != null">is_static = #{isStatic},</if>
+            <if test="isDynamics != null">is_dynamics = #{isDynamics},</if>
+            <if test="isIdc != null">is_idc = #{isIdc},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonSourceById" parameterType="Long">
+        delete from kton_source where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonSourceByIds" parameterType="String">
+        delete from kton_source where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

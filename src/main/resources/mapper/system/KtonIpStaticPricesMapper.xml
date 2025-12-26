@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpStaticPricesMapper">
+    
+    <resultMap type="KtonIpStaticPrices" id="KtonIpStaticPricesResult">
+        <result property="id"    column="id"    />
+        <result property="refId"    column="ref_id"    />
+        <result property="totalIps"    column="total_ips"    />
+        <result property="price"    column="price"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpStaticPricesVo">
+        select id, ref_id, total_ips, price, status, create_time, update_time from kton_ip_static_prices
+    </sql>
+
+    <select id="selectKtonIpStaticPricesList" parameterType="KtonIpStaticPrices" resultMap="KtonIpStaticPricesResult">
+        <include refid="selectKtonIpStaticPricesVo"/>
+        <where>  
+            <if test="refId != null "> and ref_id = #{refId}</if>
+            <if test="totalIps != null "> and total_ips = #{totalIps}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpStaticPricesById" parameterType="Long" resultMap="KtonIpStaticPricesResult">
+        <include refid="selectKtonIpStaticPricesVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpStaticPrices" parameterType="KtonIpStaticPrices" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_static_prices
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="refId != null">ref_id,</if>
+            <if test="totalIps != null">total_ips,</if>
+            <if test="price != null">price,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="refId != null">#{refId},</if>
+            <if test="totalIps != null">#{totalIps},</if>
+            <if test="price != null">#{price},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpStaticPrices" parameterType="KtonIpStaticPrices">
+        update kton_ip_static_prices
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="refId != null">ref_id = #{refId},</if>
+            <if test="totalIps != null">total_ips = #{totalIps},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpStaticPricesById" parameterType="Long">
+        delete from kton_ip_static_prices where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpStaticPricesByIds" parameterType="String">
+        delete from kton_ip_static_prices where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

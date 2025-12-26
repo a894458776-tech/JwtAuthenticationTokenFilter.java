@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonOrderItemVpsMapper">
+    
+    <resultMap type="KtonOrderItemVps" id="KtonOrderItemVpsResult">
+        <result property="id"    column="id"    />
+        <result property="vpsId"    column="vps_id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="hostIp"    column="host_ip"    />
+        <result property="hostId"    column="host_id"    />
+        <result property="clusterId"    column="cluster_id"    />
+        <result property="vpsIp"    column="vps_ip"    />
+        <result property="hostTemplateId"    column="host_template_id"    />
+        <result property="imagesUrl"    column="images_url"    />
+        <result property="activationDurationType"    column="activation_duration_type"    />
+        <result property="vpsType"    column="vps_type"    />
+        <result property="continent"    column="continent"    />
+        <result property="countryCode"    column="country_code"    />
+        <result property="city"    column="city"    />
+        <result property="effectiveDatetime"    column="effective_datetime"    />
+        <result property="expireDatetime"    column="expire_datetime"    />
+        <result property="model"    column="model"    />
+        <result property="cpuCores"    column="cpu_cores"    />
+        <result property="cpuModel"    column="cpu_model"    />
+        <result property="memory"    column="memory"    />
+        <result property="diskCapacity"    column="disk_capacity"    />
+        <result property="diskModel"    column="disk_model"    />
+        <result property="ioWrite"    column="io_write"    />
+        <result property="ioRead"    column="io_read"    />
+        <result property="bandwidth"    column="bandwidth"    />
+        <result property="internetTraffic"    column="internet_traffic"    />
+        <result property="ipV4"    column="ip_v4"    />
+        <result property="ipV6"    column="ip_v6"    />
+        <result property="unsubscribeTime"    column="unsubscribe_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonOrderItemVpsVo">
+        select id, vps_id, order_id, host_ip, host_id, cluster_id, vps_ip, host_template_id, images_url, activation_duration_type, vps_type, continent, country_code, city, effective_datetime, expire_datetime, model, cpu_cores, cpu_model, memory, disk_capacity, disk_model, io_write, io_read, bandwidth, internet_traffic, ip_v4, ip_v6, unsubscribe_time, create_time, update_time from kton_order_item_vps
+    </sql>
+
+    <select id="selectKtonOrderItemVpsList" parameterType="KtonOrderItemVps" resultMap="KtonOrderItemVpsResult">
+        <include refid="selectKtonOrderItemVpsVo"/>
+        <where>  
+            <if test="vpsId != null "> and vps_id = #{vpsId}</if>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="hostIp != null  and hostIp != ''"> and host_ip = #{hostIp}</if>
+            <if test="hostId != null "> and host_id = #{hostId}</if>
+            <if test="clusterId != null "> and cluster_id = #{clusterId}</if>
+            <if test="vpsIp != null  and vpsIp != ''"> and vps_ip = #{vpsIp}</if>
+            <if test="hostTemplateId != null  and hostTemplateId != ''"> and host_template_id = #{hostTemplateId}</if>
+            <if test="imagesUrl != null  and imagesUrl != ''"> and images_url = #{imagesUrl}</if>
+            <if test="activationDurationType != null  and activationDurationType != ''"> and activation_duration_type = #{activationDurationType}</if>
+            <if test="vpsType != null "> and vps_type = #{vpsType}</if>
+            <if test="continent != null  and continent != ''"> and continent = #{continent}</if>
+            <if test="countryCode != null  and countryCode != ''"> and country_code = #{countryCode}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="effectiveDatetime != null "> and effective_datetime = #{effectiveDatetime}</if>
+            <if test="expireDatetime != null "> and expire_datetime = #{expireDatetime}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="cpuCores != null "> and cpu_cores = #{cpuCores}</if>
+            <if test="cpuModel != null  and cpuModel != ''"> and cpu_model = #{cpuModel}</if>
+            <if test="memory != null "> and memory = #{memory}</if>
+            <if test="diskCapacity != null "> and disk_capacity = #{diskCapacity}</if>
+            <if test="diskModel != null  and diskModel != ''"> and disk_model = #{diskModel}</if>
+            <if test="ioWrite != null "> and io_write = #{ioWrite}</if>
+            <if test="ioRead != null "> and io_read = #{ioRead}</if>
+            <if test="bandwidth != null "> and bandwidth = #{bandwidth}</if>
+            <if test="internetTraffic != null "> and internet_traffic = #{internetTraffic}</if>
+            <if test="ipV4 != null  and ipV4 != ''"> and ip_v4 = #{ipV4}</if>
+            <if test="ipV6 != null  and ipV6 != ''"> and ip_v6 = #{ipV6}</if>
+            <if test="unsubscribeTime != null "> and unsubscribe_time = #{unsubscribeTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonOrderItemVpsById" parameterType="Long" resultMap="KtonOrderItemVpsResult">
+        <include refid="selectKtonOrderItemVpsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonOrderItemVps" parameterType="KtonOrderItemVps" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_order_item_vps
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null">vps_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="hostIp != null and hostIp != ''">host_ip,</if>
+            <if test="hostId != null">host_id,</if>
+            <if test="clusterId != null">cluster_id,</if>
+            <if test="vpsIp != null and vpsIp != ''">vps_ip,</if>
+            <if test="hostTemplateId != null and hostTemplateId != ''">host_template_id,</if>
+            <if test="imagesUrl != null">images_url,</if>
+            <if test="activationDurationType != null and activationDurationType != ''">activation_duration_type,</if>
+            <if test="vpsType != null">vps_type,</if>
+            <if test="continent != null and continent != ''">continent,</if>
+            <if test="countryCode != null and countryCode != ''">country_code,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="effectiveDatetime != null">effective_datetime,</if>
+            <if test="expireDatetime != null">expire_datetime,</if>
+            <if test="model != null and model != ''">model,</if>
+            <if test="cpuCores != null">cpu_cores,</if>
+            <if test="cpuModel != null and cpuModel != ''">cpu_model,</if>
+            <if test="memory != null">memory,</if>
+            <if test="diskCapacity != null">disk_capacity,</if>
+            <if test="diskModel != null and diskModel != ''">disk_model,</if>
+            <if test="ioWrite != null">io_write,</if>
+            <if test="ioRead != null">io_read,</if>
+            <if test="bandwidth != null">bandwidth,</if>
+            <if test="internetTraffic != null">internet_traffic,</if>
+            <if test="ipV4 != null and ipV4 != ''">ip_v4,</if>
+            <if test="ipV6 != null and ipV6 != ''">ip_v6,</if>
+            <if test="unsubscribeTime != null">unsubscribe_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="vpsId != null">#{vpsId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="hostIp != null and hostIp != ''">#{hostIp},</if>
+            <if test="hostId != null">#{hostId},</if>
+            <if test="clusterId != null">#{clusterId},</if>
+            <if test="vpsIp != null and vpsIp != ''">#{vpsIp},</if>
+            <if test="hostTemplateId != null and hostTemplateId != ''">#{hostTemplateId},</if>
+            <if test="imagesUrl != null">#{imagesUrl},</if>
+            <if test="activationDurationType != null and activationDurationType != ''">#{activationDurationType},</if>
+            <if test="vpsType != null">#{vpsType},</if>
+            <if test="continent != null and continent != ''">#{continent},</if>
+            <if test="countryCode != null and countryCode != ''">#{countryCode},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="effectiveDatetime != null">#{effectiveDatetime},</if>
+            <if test="expireDatetime != null">#{expireDatetime},</if>
+            <if test="model != null and model != ''">#{model},</if>
+            <if test="cpuCores != null">#{cpuCores},</if>
+            <if test="cpuModel != null and cpuModel != ''">#{cpuModel},</if>
+            <if test="memory != null">#{memory},</if>
+            <if test="diskCapacity != null">#{diskCapacity},</if>
+            <if test="diskModel != null and diskModel != ''">#{diskModel},</if>
+            <if test="ioWrite != null">#{ioWrite},</if>
+            <if test="ioRead != null">#{ioRead},</if>
+            <if test="bandwidth != null">#{bandwidth},</if>
+            <if test="internetTraffic != null">#{internetTraffic},</if>
+            <if test="ipV4 != null and ipV4 != ''">#{ipV4},</if>
+            <if test="ipV6 != null and ipV6 != ''">#{ipV6},</if>
+            <if test="unsubscribeTime != null">#{unsubscribeTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonOrderItemVps" parameterType="KtonOrderItemVps">
+        update kton_order_item_vps
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="vpsId != null">vps_id = #{vpsId},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="hostIp != null and hostIp != ''">host_ip = #{hostIp},</if>
+            <if test="hostId != null">host_id = #{hostId},</if>
+            <if test="clusterId != null">cluster_id = #{clusterId},</if>
+            <if test="vpsIp != null and vpsIp != ''">vps_ip = #{vpsIp},</if>
+            <if test="hostTemplateId != null and hostTemplateId != ''">host_template_id = #{hostTemplateId},</if>
+            <if test="imagesUrl != null">images_url = #{imagesUrl},</if>
+            <if test="activationDurationType != null and activationDurationType != ''">activation_duration_type = #{activationDurationType},</if>
+            <if test="vpsType != null">vps_type = #{vpsType},</if>
+            <if test="continent != null and continent != ''">continent = #{continent},</if>
+            <if test="countryCode != null and countryCode != ''">country_code = #{countryCode},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="effectiveDatetime != null">effective_datetime = #{effectiveDatetime},</if>
+            <if test="expireDatetime != null">expire_datetime = #{expireDatetime},</if>
+            <if test="model != null and model != ''">model = #{model},</if>
+            <if test="cpuCores != null">cpu_cores = #{cpuCores},</if>
+            <if test="cpuModel != null and cpuModel != ''">cpu_model = #{cpuModel},</if>
+            <if test="memory != null">memory = #{memory},</if>
+            <if test="diskCapacity != null">disk_capacity = #{diskCapacity},</if>
+            <if test="diskModel != null and diskModel != ''">disk_model = #{diskModel},</if>
+            <if test="ioWrite != null">io_write = #{ioWrite},</if>
+            <if test="ioRead != null">io_read = #{ioRead},</if>
+            <if test="bandwidth != null">bandwidth = #{bandwidth},</if>
+            <if test="internetTraffic != null">internet_traffic = #{internetTraffic},</if>
+            <if test="ipV4 != null and ipV4 != ''">ip_v4 = #{ipV4},</if>
+            <if test="ipV6 != null and ipV6 != ''">ip_v6 = #{ipV6},</if>
+            <if test="unsubscribeTime != null">unsubscribe_time = #{unsubscribeTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonOrderItemVpsById" parameterType="Long">
+        delete from kton_order_item_vps where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonOrderItemVpsByIds" parameterType="String">
+        delete from kton_order_item_vps where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

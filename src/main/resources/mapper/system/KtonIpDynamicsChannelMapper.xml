@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsChannelMapper">
+    
+    <resultMap type="KtonIpDynamicsChannel" id="KtonIpDynamicsChannelResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="channelStatus"    column="channel_status"    />
+        <result property="channelName"    column="channel_name"    />
+        <result property="channelPassword"    column="channel_password"    />
+        <result property="useTrafficGb"    column="use_traffic_gb"    />
+        <result property="limitTrafficGb"    column="limit_traffic_gb"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsChannelVo">
+        select id, merchant_id, channel_status, channel_name, channel_password, use_traffic_gb, limit_traffic_gb, remarks, create_time, update_time from kton_ip_dynamics_channel
+    </sql>
+
+    <select id="selectKtonIpDynamicsChannelList" parameterType="KtonIpDynamicsChannel" resultMap="KtonIpDynamicsChannelResult">
+        <include refid="selectKtonIpDynamicsChannelVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="channelStatus != null "> and channel_status = #{channelStatus}</if>
+            <if test="channelName != null  and channelName != ''"> and channel_name like concat('%', #{channelName}, '%')</if>
+            <if test="channelPassword != null  and channelPassword != ''"> and channel_password = #{channelPassword}</if>
+            <if test="useTrafficGb != null "> and use_traffic_gb = #{useTrafficGb}</if>
+            <if test="limitTrafficGb != null "> and limit_traffic_gb = #{limitTrafficGb}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsChannelById" parameterType="Long" resultMap="KtonIpDynamicsChannelResult">
+        <include refid="selectKtonIpDynamicsChannelVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsChannel" parameterType="KtonIpDynamicsChannel">
+        insert into kton_ip_dynamics_channel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="channelStatus != null">channel_status,</if>
+            <if test="channelName != null">channel_name,</if>
+            <if test="channelPassword != null">channel_password,</if>
+            <if test="useTrafficGb != null">use_traffic_gb,</if>
+            <if test="limitTrafficGb != null">limit_traffic_gb,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="channelStatus != null">#{channelStatus},</if>
+            <if test="channelName != null">#{channelName},</if>
+            <if test="channelPassword != null">#{channelPassword},</if>
+            <if test="useTrafficGb != null">#{useTrafficGb},</if>
+            <if test="limitTrafficGb != null">#{limitTrafficGb},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsChannel" parameterType="KtonIpDynamicsChannel">
+        update kton_ip_dynamics_channel
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="channelStatus != null">channel_status = #{channelStatus},</if>
+            <if test="channelName != null">channel_name = #{channelName},</if>
+            <if test="channelPassword != null">channel_password = #{channelPassword},</if>
+            <if test="useTrafficGb != null">use_traffic_gb = #{useTrafficGb},</if>
+            <if test="limitTrafficGb != null">limit_traffic_gb = #{limitTrafficGb},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsChannelById" parameterType="Long">
+        delete from kton_ip_dynamics_channel where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsChannelByIds" parameterType="String">
+        delete from kton_ip_dynamics_channel where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

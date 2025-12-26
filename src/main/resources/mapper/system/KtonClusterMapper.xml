@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonClusterMapper">
+    
+    <resultMap type="KtonCluster" id="KtonClusterResult">
+        <result property="id"    column="id"    />
+        <result property="clusterName"    column="cluster_name"    />
+        <result property="clusterType"    column="cluster_type"    />
+        <result property="continent"    column="continent"    />
+        <result property="countryCode"    column="country_code"    />
+        <result property="city"    column="city"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonClusterVo">
+        select id, cluster_name, cluster_type, continent, country_code, city, create_time, update_time from kton_cluster
+    </sql>
+
+    <select id="selectKtonClusterList" parameterType="KtonCluster" resultMap="KtonClusterResult">
+        <include refid="selectKtonClusterVo"/>
+        <where>  
+            <if test="clusterName != null  and clusterName != ''"> and cluster_name like concat('%', #{clusterName}, '%')</if>
+            <if test="clusterType != null  and clusterType != ''"> and cluster_type = #{clusterType}</if>
+            <if test="continent != null  and continent != ''"> and continent = #{continent}</if>
+            <if test="countryCode != null  and countryCode != ''"> and country_code = #{countryCode}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonClusterById" parameterType="Long" resultMap="KtonClusterResult">
+        <include refid="selectKtonClusterVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonCluster" parameterType="KtonCluster" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_cluster
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clusterName != null and clusterName != ''">cluster_name,</if>
+            <if test="clusterType != null and clusterType != ''">cluster_type,</if>
+            <if test="continent != null and continent != ''">continent,</if>
+            <if test="countryCode != null and countryCode != ''">country_code,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clusterName != null and clusterName != ''">#{clusterName},</if>
+            <if test="clusterType != null and clusterType != ''">#{clusterType},</if>
+            <if test="continent != null and continent != ''">#{continent},</if>
+            <if test="countryCode != null and countryCode != ''">#{countryCode},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonCluster" parameterType="KtonCluster">
+        update kton_cluster
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="clusterName != null and clusterName != ''">cluster_name = #{clusterName},</if>
+            <if test="clusterType != null and clusterType != ''">cluster_type = #{clusterType},</if>
+            <if test="continent != null and continent != ''">continent = #{continent},</if>
+            <if test="countryCode != null and countryCode != ''">country_code = #{countryCode},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonClusterById" parameterType="Long">
+        delete from kton_cluster where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonClusterByIds" parameterType="String">
+        delete from kton_cluster where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

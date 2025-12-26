@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonVpsHostMapper">
+    
+    <resultMap type="KtonVpsHost" id="KtonVpsHostResult">
+        <result property="id"    column="id"    />
+        <result property="hostName"    column="host_name"    />
+        <result property="hostIp"    column="host_ip"    />
+        <result property="clusterId"    column="cluster_id"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="continent"    column="continent"    />
+        <result property="countryCode"    column="country_code"    />
+        <result property="city"    column="city"    />
+        <result property="sshUsername"    column="ssh_username"    />
+        <result property="sshPassword"    column="ssh_password"    />
+        <result property="sshPort"    column="ssh_port"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonVpsHostVo">
+        select id, host_name, host_ip, cluster_id, source_id, continent, country_code, city, ssh_username, ssh_password, ssh_port, create_time, update_time from kton_vps_host
+    </sql>
+
+    <select id="selectKtonVpsHostList" parameterType="KtonVpsHost" resultMap="KtonVpsHostResult">
+        <include refid="selectKtonVpsHostVo"/>
+        <where>  
+            <if test="hostName != null  and hostName != ''"> and host_name like concat('%', #{hostName}, '%')</if>
+            <if test="hostIp != null  and hostIp != ''"> and host_ip = #{hostIp}</if>
+            <if test="clusterId != null "> and cluster_id = #{clusterId}</if>
+            <if test="sourceId != null "> and source_id = #{sourceId}</if>
+            <if test="continent != null  and continent != ''"> and continent = #{continent}</if>
+            <if test="countryCode != null  and countryCode != ''"> and country_code = #{countryCode}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="sshUsername != null  and sshUsername != ''"> and ssh_username like concat('%', #{sshUsername}, '%')</if>
+            <if test="sshPassword != null  and sshPassword != ''"> and ssh_password = #{sshPassword}</if>
+            <if test="sshPort != null "> and ssh_port = #{sshPort}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonVpsHostById" parameterType="Long" resultMap="KtonVpsHostResult">
+        <include refid="selectKtonVpsHostVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonVpsHost" parameterType="KtonVpsHost" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_vps_host
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hostName != null and hostName != ''">host_name,</if>
+            <if test="hostIp != null and hostIp != ''">host_ip,</if>
+            <if test="clusterId != null">cluster_id,</if>
+            <if test="sourceId != null">source_id,</if>
+            <if test="continent != null and continent != ''">continent,</if>
+            <if test="countryCode != null and countryCode != ''">country_code,</if>
+            <if test="city != null and city != ''">city,</if>
+            <if test="sshUsername != null and sshUsername != ''">ssh_username,</if>
+            <if test="sshPassword != null and sshPassword != ''">ssh_password,</if>
+            <if test="sshPort != null">ssh_port,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hostName != null and hostName != ''">#{hostName},</if>
+            <if test="hostIp != null and hostIp != ''">#{hostIp},</if>
+            <if test="clusterId != null">#{clusterId},</if>
+            <if test="sourceId != null">#{sourceId},</if>
+            <if test="continent != null and continent != ''">#{continent},</if>
+            <if test="countryCode != null and countryCode != ''">#{countryCode},</if>
+            <if test="city != null and city != ''">#{city},</if>
+            <if test="sshUsername != null and sshUsername != ''">#{sshUsername},</if>
+            <if test="sshPassword != null and sshPassword != ''">#{sshPassword},</if>
+            <if test="sshPort != null">#{sshPort},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonVpsHost" parameterType="KtonVpsHost">
+        update kton_vps_host
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hostName != null and hostName != ''">host_name = #{hostName},</if>
+            <if test="hostIp != null and hostIp != ''">host_ip = #{hostIp},</if>
+            <if test="clusterId != null">cluster_id = #{clusterId},</if>
+            <if test="sourceId != null">source_id = #{sourceId},</if>
+            <if test="continent != null and continent != ''">continent = #{continent},</if>
+            <if test="countryCode != null and countryCode != ''">country_code = #{countryCode},</if>
+            <if test="city != null and city != ''">city = #{city},</if>
+            <if test="sshUsername != null and sshUsername != ''">ssh_username = #{sshUsername},</if>
+            <if test="sshPassword != null and sshPassword != ''">ssh_password = #{sshPassword},</if>
+            <if test="sshPort != null">ssh_port = #{sshPort},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonVpsHostById" parameterType="Long">
+        delete from kton_vps_host where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonVpsHostByIds" parameterType="String">
+        delete from kton_vps_host where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

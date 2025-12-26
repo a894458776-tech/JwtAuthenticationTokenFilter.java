@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonVpsConfigPriceTemplateMapper">
+    
+    <resultMap type="KtonVpsConfigPriceTemplate" id="KtonVpsConfigPriceTemplateResult">
+        <result property="id"    column="id"    />
+        <result property="hostId"    column="host_id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="hostPerformanceId"    column="host_performance_id"    />
+        <result property="days"    column="days"    />
+        <result property="dayDiscount"    column="day_discount"    />
+        <result property="priceMonthly"    column="price_monthly"    />
+        <result property="priceQuarterly"    column="price_quarterly"    />
+        <result property="priceSemiAnnually"    column="price_semi_annually"    />
+        <result property="priceAnnually"    column="price_annually"    />
+        <result property="currency"    column="currency"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonVpsConfigPriceTemplateVo">
+        select id, host_id, merchant_id, host_performance_id, days, day_discount, price_monthly, price_quarterly, price_semi_annually, price_annually, currency, status, create_time, update_time from kton_vps_config_price_template
+    </sql>
+
+    <select id="selectKtonVpsConfigPriceTemplateList" parameterType="KtonVpsConfigPriceTemplate" resultMap="KtonVpsConfigPriceTemplateResult">
+        <include refid="selectKtonVpsConfigPriceTemplateVo"/>
+        <where>  
+            <if test="hostId != null "> and host_id = #{hostId}</if>
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="hostPerformanceId != null "> and host_performance_id = #{hostPerformanceId}</if>
+            <if test="days != null "> and days = #{days}</if>
+            <if test="dayDiscount != null "> and day_discount = #{dayDiscount}</if>
+            <if test="priceMonthly != null "> and price_monthly = #{priceMonthly}</if>
+            <if test="priceQuarterly != null "> and price_quarterly = #{priceQuarterly}</if>
+            <if test="priceSemiAnnually != null "> and price_semi_annually = #{priceSemiAnnually}</if>
+            <if test="priceAnnually != null "> and price_annually = #{priceAnnually}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonVpsConfigPriceTemplateById" parameterType="Long" resultMap="KtonVpsConfigPriceTemplateResult">
+        <include refid="selectKtonVpsConfigPriceTemplateVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonVpsConfigPriceTemplate" parameterType="KtonVpsConfigPriceTemplate">
+        insert into kton_vps_config_price_template
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="hostId != null">host_id,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="hostPerformanceId != null">host_performance_id,</if>
+            <if test="days != null">days,</if>
+            <if test="dayDiscount != null">day_discount,</if>
+            <if test="priceMonthly != null">price_monthly,</if>
+            <if test="priceQuarterly != null">price_quarterly,</if>
+            <if test="priceSemiAnnually != null">price_semi_annually,</if>
+            <if test="priceAnnually != null">price_annually,</if>
+            <if test="currency != null">currency,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="hostId != null">#{hostId},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="hostPerformanceId != null">#{hostPerformanceId},</if>
+            <if test="days != null">#{days},</if>
+            <if test="dayDiscount != null">#{dayDiscount},</if>
+            <if test="priceMonthly != null">#{priceMonthly},</if>
+            <if test="priceQuarterly != null">#{priceQuarterly},</if>
+            <if test="priceSemiAnnually != null">#{priceSemiAnnually},</if>
+            <if test="priceAnnually != null">#{priceAnnually},</if>
+            <if test="currency != null">#{currency},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonVpsConfigPriceTemplate" parameterType="KtonVpsConfigPriceTemplate">
+        update kton_vps_config_price_template
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hostId != null">host_id = #{hostId},</if>
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="hostPerformanceId != null">host_performance_id = #{hostPerformanceId},</if>
+            <if test="days != null">days = #{days},</if>
+            <if test="dayDiscount != null">day_discount = #{dayDiscount},</if>
+            <if test="priceMonthly != null">price_monthly = #{priceMonthly},</if>
+            <if test="priceQuarterly != null">price_quarterly = #{priceQuarterly},</if>
+            <if test="priceSemiAnnually != null">price_semi_annually = #{priceSemiAnnually},</if>
+            <if test="priceAnnually != null">price_annually = #{priceAnnually},</if>
+            <if test="currency != null">currency = #{currency},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonVpsConfigPriceTemplateById" parameterType="Long">
+        delete from kton_vps_config_price_template where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonVpsConfigPriceTemplateByIds" parameterType="String">
+        delete from kton_vps_config_price_template where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

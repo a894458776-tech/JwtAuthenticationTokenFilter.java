@@ -1,0 +1,22 @@
+/*
+ * Decompiled with CFR 0.152.
+ * 
+ * Could not load the following classes:
+ *  com.kylin.kton.system.domain.KtonMerchantConfig
+ *  org.apache.ibatis.annotations.Param
+ *  org.apache.ibatis.annotations.Select
+ *  org.springframework.stereotype.Repository
+ */
+package com.kylin.kton.client.merchant.base.mapper;
+
+import com.kylin.kton.system.domain.KtonMerchantConfig;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface MerchantConfigDao {
+    @Select(value={"<script> SELECT * FROM kton_merchant_config   WHERE merchant_id = #{merchantId}  </script>"})
+    public KtonMerchantConfig merchantConfigInfo(@Param(value="merchantId") Long var1);
+}
+

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsAccountSupportProtocolMapper">
+    
+    <resultMap type="KtonIpDynamicsAccountSupportProtocol" id="KtonIpDynamicsAccountSupportProtocolResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="accountId"    column="account_id"    />
+        <result property="supportedProtocol"    column="supported_protocol"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsAccountSupportProtocolVo">
+        select id, merchant_id, account_id, supported_protocol, create_time, update_time from kton_ip_dynamics_account_support_protocol
+    </sql>
+
+    <select id="selectKtonIpDynamicsAccountSupportProtocolList" parameterType="KtonIpDynamicsAccountSupportProtocol" resultMap="KtonIpDynamicsAccountSupportProtocolResult">
+        <include refid="selectKtonIpDynamicsAccountSupportProtocolVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="accountId != null "> and account_id = #{accountId}</if>
+            <if test="supportedProtocol != null  and supportedProtocol != ''"> and supported_protocol = #{supportedProtocol}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsAccountSupportProtocolById" parameterType="Long" resultMap="KtonIpDynamicsAccountSupportProtocolResult">
+        <include refid="selectKtonIpDynamicsAccountSupportProtocolVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsAccountSupportProtocol" parameterType="KtonIpDynamicsAccountSupportProtocol" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_dynamics_account_support_protocol
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="supportedProtocol != null">supported_protocol,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="supportedProtocol != null">#{supportedProtocol},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsAccountSupportProtocol" parameterType="KtonIpDynamicsAccountSupportProtocol">
+        update kton_ip_dynamics_account_support_protocol
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="supportedProtocol != null">supported_protocol = #{supportedProtocol},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsAccountSupportProtocolById" parameterType="Long">
+        delete from kton_ip_dynamics_account_support_protocol where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsAccountSupportProtocolByIds" parameterType="String">
+        delete from kton_ip_dynamics_account_support_protocol where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

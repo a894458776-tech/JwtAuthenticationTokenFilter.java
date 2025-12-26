@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpStaticConfigPlanMapper">
+    
+    <resultMap type="KtonIpStaticConfigPlan" id="KtonIpStaticConfigPlanResult">
+        <result property="id"    column="id"    />
+        <result property="ipType"    column="ip_type"    />
+        <result property="totalIps"    column="total_ips"    />
+        <result property="price"    column="price"    />
+        <result property="countryCode"    column="country_code"    />
+        <result property="status"    column="status"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="isExclusive"    column="is_exclusive"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpStaticConfigPlanVo">
+        select id, ip_type, total_ips, price, country_code, status, merchant_id, is_exclusive, create_time, update_time from kton_ip_static_config_plan
+    </sql>
+
+    <select id="selectKtonIpStaticConfigPlanList" parameterType="KtonIpStaticConfigPlan" resultMap="KtonIpStaticConfigPlanResult">
+        <include refid="selectKtonIpStaticConfigPlanVo"/>
+        <where>  
+            <if test="ipType != null "> and ip_type = #{ipType}</if>
+            <if test="totalIps != null "> and total_ips = #{totalIps}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="countryCode != null  and countryCode != ''"> and country_code = #{countryCode}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="isExclusive != null "> and is_exclusive = #{isExclusive}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpStaticConfigPlanById" parameterType="Long" resultMap="KtonIpStaticConfigPlanResult">
+        <include refid="selectKtonIpStaticConfigPlanVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpStaticConfigPlan" parameterType="KtonIpStaticConfigPlan" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_static_config_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ipType != null">ip_type,</if>
+            <if test="totalIps != null">total_ips,</if>
+            <if test="price != null">price,</if>
+            <if test="countryCode != null">country_code,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="isExclusive != null">is_exclusive,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ipType != null">#{ipType},</if>
+            <if test="totalIps != null">#{totalIps},</if>
+            <if test="price != null">#{price},</if>
+            <if test="countryCode != null">#{countryCode},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="isExclusive != null">#{isExclusive},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpStaticConfigPlan" parameterType="KtonIpStaticConfigPlan">
+        update kton_ip_static_config_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ipType != null">ip_type = #{ipType},</if>
+            <if test="totalIps != null">total_ips = #{totalIps},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="countryCode != null">country_code = #{countryCode},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="isExclusive != null">is_exclusive = #{isExclusive},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpStaticConfigPlanById" parameterType="Long">
+        delete from kton_ip_static_config_plan where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpStaticConfigPlanByIds" parameterType="String">
+        delete from kton_ip_static_config_plan where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMonitorHostDetailsMapper">
+    
+    <resultMap type="KtonMonitorHostDetails" id="KtonMonitorHostDetailsResult">
+        <result property="hostIp"    column="host_ip"    />
+        <result property="dateTime"    column="date_time"    />
+        <result property="cpuUsage"    column="cpu_usage"    />
+        <result property="diskUsage"    column="disk_usage"    />
+        <result property="memoryUsage"    column="memory_usage"    />
+        <result property="countProcess"    column="count_process"    />
+        <result property="countContainer"    column="count_container"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMonitorHostDetailsVo">
+        select host_ip, date_time, cpu_usage, disk_usage, memory_usage, count_process, count_container, create_time from kton_monitor_host_details
+    </sql>
+
+    <select id="selectKtonMonitorHostDetailsList" parameterType="KtonMonitorHostDetails" resultMap="KtonMonitorHostDetailsResult">
+        <include refid="selectKtonMonitorHostDetailsVo"/>
+        <where>  
+            <if test="cpuUsage != null "> and cpu_usage = #{cpuUsage}</if>
+            <if test="diskUsage != null "> and disk_usage = #{diskUsage}</if>
+            <if test="memoryUsage != null "> and memory_usage = #{memoryUsage}</if>
+            <if test="countProcess != null "> and count_process = #{countProcess}</if>
+            <if test="countContainer != null "> and count_container = #{countContainer}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMonitorHostDetailsByHostIp" parameterType="String" resultMap="KtonMonitorHostDetailsResult">
+        <include refid="selectKtonMonitorHostDetailsVo"/>
+        where host_ip = #{hostIp}
+    </select>
+
+    <insert id="insertKtonMonitorHostDetails" parameterType="KtonMonitorHostDetails">
+        insert into kton_monitor_host_details
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hostIp != null">host_ip,</if>
+            <if test="dateTime != null">date_time,</if>
+            <if test="cpuUsage != null">cpu_usage,</if>
+            <if test="diskUsage != null">disk_usage,</if>
+            <if test="memoryUsage != null">memory_usage,</if>
+            <if test="countProcess != null">count_process,</if>
+            <if test="countContainer != null">count_container,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hostIp != null">#{hostIp},</if>
+            <if test="dateTime != null">#{dateTime},</if>
+            <if test="cpuUsage != null">#{cpuUsage},</if>
+            <if test="diskUsage != null">#{diskUsage},</if>
+            <if test="memoryUsage != null">#{memoryUsage},</if>
+            <if test="countProcess != null">#{countProcess},</if>
+            <if test="countContainer != null">#{countContainer},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMonitorHostDetails" parameterType="KtonMonitorHostDetails">
+        update kton_monitor_host_details
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="dateTime != null">date_time = #{dateTime},</if>
+            <if test="cpuUsage != null">cpu_usage = #{cpuUsage},</if>
+            <if test="diskUsage != null">disk_usage = #{diskUsage},</if>
+            <if test="memoryUsage != null">memory_usage = #{memoryUsage},</if>
+            <if test="countProcess != null">count_process = #{countProcess},</if>
+            <if test="countContainer != null">count_container = #{countContainer},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where host_ip = #{hostIp}
+    </update>
+
+    <delete id="deleteKtonMonitorHostDetailsByHostIp" parameterType="String">
+        delete from kton_monitor_host_details where host_ip = #{hostIp}
+    </delete>
+
+    <delete id="deleteKtonMonitorHostDetailsByHostIps" parameterType="String">
+        delete from kton_monitor_host_details where host_ip in 
+        <foreach item="hostIp" collection="array" open="(" separator="," close=")">
+            #{hostIp}
+        </foreach>
+    </delete>
+</mapper>

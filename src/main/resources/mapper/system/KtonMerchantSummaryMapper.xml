@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMerchantSummaryMapper">
+    
+    <resultMap type="KtonMerchantSummary" id="KtonMerchantSummaryResult">
+        <result property="id"    column="id"    />
+        <result property="staticIpCount"    column="static_ip_count"    />
+        <result property="dynamicsPlan"    column="dynamics_plan"    />
+        <result property="dynamicsPlanEndDate"    column="dynamics_plan_end_date"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMerchantSummaryVo">
+        select id, static_ip_count, dynamics_plan, dynamics_plan_end_date, create_time, update_time from kton_merchant_summary
+    </sql>
+
+    <select id="selectKtonMerchantSummaryList" parameterType="KtonMerchantSummary" resultMap="KtonMerchantSummaryResult">
+        <include refid="selectKtonMerchantSummaryVo"/>
+        <where>  
+            <if test="staticIpCount != null "> and static_ip_count = #{staticIpCount}</if>
+            <if test="dynamicsPlan != null "> and dynamics_plan = #{dynamicsPlan}</if>
+            <if test="dynamicsPlanEndDate != null "> and dynamics_plan_end_date = #{dynamicsPlanEndDate}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMerchantSummaryById" parameterType="Long" resultMap="KtonMerchantSummaryResult">
+        <include refid="selectKtonMerchantSummaryVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonMerchantSummary" parameterType="KtonMerchantSummary">
+        insert into kton_merchant_summary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="staticIpCount != null">static_ip_count,</if>
+            <if test="dynamicsPlan != null">dynamics_plan,</if>
+            <if test="dynamicsPlanEndDate != null">dynamics_plan_end_date,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="staticIpCount != null">#{staticIpCount},</if>
+            <if test="dynamicsPlan != null">#{dynamicsPlan},</if>
+            <if test="dynamicsPlanEndDate != null">#{dynamicsPlanEndDate},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMerchantSummary" parameterType="KtonMerchantSummary">
+        update kton_merchant_summary
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="staticIpCount != null">static_ip_count = #{staticIpCount},</if>
+            <if test="dynamicsPlan != null">dynamics_plan = #{dynamicsPlan},</if>
+            <if test="dynamicsPlanEndDate != null">dynamics_plan_end_date = #{dynamicsPlanEndDate},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonMerchantSummaryById" parameterType="Long">
+        delete from kton_merchant_summary where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonMerchantSummaryByIds" parameterType="String">
+        delete from kton_merchant_summary where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

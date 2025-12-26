@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpStaticMerchantMapper">
+    
+    <resultMap type="KtonIpStaticMerchant" id="KtonIpStaticMerchantResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="lastOrderId"    column="last_order_id"    />
+        <result property="lastPoolId"    column="last_pool_id"    />
+        <result property="port"    column="port"    />
+        <result property="ip"    column="ip"    />
+        <result property="protocolse"    column="protocolse"    />
+        <result property="effectiveDatetime"    column="effective_datetime"    />
+        <result property="expireDatetime"    column="expire_datetime"    />
+        <result property="unsubscribeTime"    column="unsubscribe_time"    />
+        <result property="subscribeDatetime"    column="subscribe_datetime"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpStaticMerchantVo">
+        select id, merchant_id, last_order_id, last_pool_id, port, ip, protocolse, effective_datetime, expire_datetime, unsubscribe_time, subscribe_datetime, status, create_time, update_time from kton_ip_static_merchant
+    </sql>
+
+    <select id="selectKtonIpStaticMerchantList" parameterType="KtonIpStaticMerchant" resultMap="KtonIpStaticMerchantResult">
+        <include refid="selectKtonIpStaticMerchantVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="lastOrderId != null "> and last_order_id = #{lastOrderId}</if>
+            <if test="lastPoolId != null "> and last_pool_id = #{lastPoolId}</if>
+            <if test="port != null  and port != ''"> and port = #{port}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="protocolse != null  and protocolse != ''"> and protocolse = #{protocolse}</if>
+            <if test="effectiveDatetime != null "> and effective_datetime = #{effectiveDatetime}</if>
+            <if test="expireDatetime != null "> and expire_datetime = #{expireDatetime}</if>
+            <if test="unsubscribeTime != null "> and unsubscribe_time = #{unsubscribeTime}</if>
+            <if test="subscribeDatetime != null "> and subscribe_datetime = #{subscribeDatetime}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpStaticMerchantById" parameterType="Long" resultMap="KtonIpStaticMerchantResult">
+        <include refid="selectKtonIpStaticMerchantVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpStaticMerchant" parameterType="KtonIpStaticMerchant" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_static_merchant
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="lastOrderId != null">last_order_id,</if>
+            <if test="lastPoolId != null">last_pool_id,</if>
+            <if test="port != null and port != ''">port,</if>
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="protocolse != null">protocolse,</if>
+            <if test="effectiveDatetime != null">effective_datetime,</if>
+            <if test="expireDatetime != null">expire_datetime,</if>
+            <if test="unsubscribeTime != null">unsubscribe_time,</if>
+            <if test="subscribeDatetime != null">subscribe_datetime,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="lastOrderId != null">#{lastOrderId},</if>
+            <if test="lastPoolId != null">#{lastPoolId},</if>
+            <if test="port != null and port != ''">#{port},</if>
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="protocolse != null">#{protocolse},</if>
+            <if test="effectiveDatetime != null">#{effectiveDatetime},</if>
+            <if test="expireDatetime != null">#{expireDatetime},</if>
+            <if test="unsubscribeTime != null">#{unsubscribeTime},</if>
+            <if test="subscribeDatetime != null">#{subscribeDatetime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpStaticMerchant" parameterType="KtonIpStaticMerchant">
+        update kton_ip_static_merchant
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="lastOrderId != null">last_order_id = #{lastOrderId},</if>
+            <if test="lastPoolId != null">last_pool_id = #{lastPoolId},</if>
+            <if test="port != null and port != ''">port = #{port},</if>
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="protocolse != null">protocolse = #{protocolse},</if>
+            <if test="effectiveDatetime != null">effective_datetime = #{effectiveDatetime},</if>
+            <if test="expireDatetime != null">expire_datetime = #{expireDatetime},</if>
+            <if test="unsubscribeTime != null">unsubscribe_time = #{unsubscribeTime},</if>
+            <if test="subscribeDatetime != null">subscribe_datetime = #{subscribeDatetime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpStaticMerchantById" parameterType="Long">
+        delete from kton_ip_static_merchant where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpStaticMerchantByIds" parameterType="String">
+        delete from kton_ip_static_merchant where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

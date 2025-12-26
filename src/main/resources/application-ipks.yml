@@ -1,0 +1,198 @@
+# ===================================================================
+# Spring Boot 应用配置 (解决 Swagger 启动报错)
+# ===================================================================
+server:
+  port: 8089
+  servlet:
+    context-path: /api/kton
+  forward-headers-strategy: native
+
+spring:
+  # 1. 允许循环依赖
+  main:
+    allow-circular-references: true
+
+  # 2. 【新增】解决 Swagger 与 SpringBoot 2.6+ 不兼容的问题
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+  application:
+    name: kylin-kton
+
+  # 数据源配置
+  datasource:
+    druid:
+      initialSize: 5
+      minIdle: 5
+      maxActive: 20
+      maxWait: 60000
+      connectTimeout: 60000
+      socketTimeout: 60000
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      maxEvictableIdleTimeMillis: 900000
+      validationQuery: SELECT 1
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      filters: stat,wall
+
+      # 主库数据源
+      master:
+        url: jdbc:mysql://140.235.37.194:5454/kylin_kton?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: kylin_kton
+        password: Kingstar123++
+        driverClassName: com.mysql.cj.jdbc.Driver
+
+      # 从库数据源
+      slave:
+        enabled: false
+        url:
+        username:
+        password:
+
+      # 监控部分
+      webStatFilter:
+        enabled: true
+        urlPattern: "/*"
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*"
+      statViewServlet:
+        enabled: true
+        urlPattern: "/druid/*"
+        resetEnable: false
+        loginUsername: admin
+        loginPassword: admin123
+
+  # Redis 配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password:
+    timeout: 10s
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+logging:
+  level:
+    root: info
+    com.kylin.kton: debug
+
+# MyBatis 配置
+mybatis:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.kylin.kton.**.domain
+  configuration:
+    map-underscore-to-camel-case: true
+
+app:
+  name: kylin-kton
+  version: 3.8.8
+
+# XSS 配置
+xss:
+  enabled: true
+  urlPatterns: "/*"
+  excludes: "/druid/**,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs,/captchaImage,/login,/register,/client/ip/dynamics/**,/client/ip/static/**,/client/ip/pool/**"
+
+# API 配置
+api:
+  ipnux:
+    userId: 1866825255666978816
+    token: 836383d7d798439db895fe3ce54d7fab
+    endpointHost: gw.dataimpulse.com
+    endpointPort: 823
+  dataimpulse:
+    account: a894458776@gmail.com
+    password: 3Fq2Y08eAYggke09izQXeUt7tO6hSNGq
+    endpointHost: gw.dataimpulse.com
+    endpointHttpPort: 823
+    endpointHttpsPort: 823
+    endpointSocks5Port: 824
+  netnut:
+    account: justinhu@kingstar-media.com
+    password: Ue8(Ni&D/zz]zT4
+    endpointHost: gw.netnut.net
+    endpointHttpPort: 80
+    endpointHttpsPort: 443
+    endpointSocks5Port: 9595
+  oxylabs:
+    account: testuser_EAxSw
+    password: sKwY2dQ5=WMuU
+    mainAccount: testuser_EAxSw
+    mainAccountPassword: sKwY2dQ5=WMuU
+    endpointHost: pr.oxylabs.io
+    endpointHttpPort: 7777
+    endpointHttpsPort: 7777
+    endpointSocks5Port: 7777
+
+# 邮件配置
+mail:
+  host: smtp.163.com
+  port: 465
+  username: kingstargz2025@163.com
+  password: UXqyet4uiVp3xCXi
+  properties:
+    mail:
+      smtp:
+        auth: true
+        ssl:
+          enable: true
+          trust: smtp.163.com
+        connectiontimeout: 5000
+        timeout: 5000
+        writetimeout: 5000
+
+# Source 配置
+source:
+  conf:
+    assignTimes: 2
+
+# Token 配置
+token:
+  header: Authorization
+  secret: abcdefghijklmnopqrstuvwxyz
+  expireTime: 60
+
+# 用户密码配置 (解决 user.password.maxRetryCount 报错)
+user:
+  password:
+    maxRetryCount: 5
+    lockTime: 10
+
+# Swagger 配置 (解决 swagger.enabled 报错)
+swagger:
+  enabled: true
+  title: Kylin Kton API
+  description: Kylin Kton Service API
+  version: 3.8.8
+  pathMapping: /
+
+# 代码生成配置 (解决 genConfig 报错)
+# 注意：这里是标准写法
+gen:
+  author: kylin
+  packageName: com.kylin.kton
+  autoRemovePre: false
+  tablePrefix: sys_
+
+# 【兜底配置】
+# 为了防止代码中使用 @Value("${packageName}") 这种直接读取根路径的方式，
+# 我们在这里额外重复配置一遍，确保万无一失。
+packageName: com.kylin.kton
+tablePrefix: sys_
+author: kylin
+autoRemovePre: false

@@ -1,0 +1,59 @@
+Summary for xmlbeans-3.1.0.jar
+Decompiled with CFR 0.152
+
+
+org.apache.xmlbeans.impl.common.XmlWhitespace
+----------------------------
+
+collapse(java.lang.String int )
+  Unable to fully structure code
+
+
+org.apache.xmlbeans.impl.schema.StscChecker
+----------------------------
+
+checkElementDefaults(org.apache.xmlbeans.SchemaParticle org.apache.xmlbeans.XmlObject org.apache.xmlbeans.SchemaType )
+  Unable to fully structure code
+
+
+org.apache.xmlbeans.impl.schema.StscSimpleTypeResolver
+----------------------------
+
+resolveFacets(org.apache.xmlbeans.impl.schema.SchemaTypeImpl org.apache.xmlbeans.XmlObject org.apache.xmlbeans.impl.schema.SchemaTypeImpl )
+  Unable to fully structure code
+
+
+org.apache.xmlbeans.impl.store.CharUtil
+----------------------------
+
+saveChars(java.lang.Object int int java.lang.Object int int )
+  Unable to fully structure code
+  Could not resolve type clashes
+
+
+org.apache.xmlbeans.impl.store.Cursor
+----------------------------
+
+isDomFragment()
+  Unable to fully structure code
+
+
+org.apache.xmlbeans.impl.store.Query
+----------------------------
+
+getCompiledQuery(java.lang.String java.lang.String org.apache.xmlbeans.XmlOptions )
+  Loose catch block
+
+
+org.apache.xmlbeans.impl.store.Xobj
+----------------------------
+
+copyNode(org.apache.xmlbeans.impl.store.Locale )
+  Unable to fully structure code
+
+
+org.apache.xmlbeans.impl.tool.SchemaImportResolver
+----------------------------
+
+resolveImports(org.apache.xmlbeans.impl.tool.SchemaImportResolver$SchemaResource[] )
+  Unable to fully structure code

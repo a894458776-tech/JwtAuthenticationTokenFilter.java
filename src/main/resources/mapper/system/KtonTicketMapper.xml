@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonTicketMapper">
+    
+    <resultMap type="KtonTicket" id="KtonTicketResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="ticketNo"    column="ticket_no"    />
+        <result property="parentTicketId"    column="parent_ticket_id"    />
+        <result property="ticketType"    column="ticket_type"    />
+        <result property="ticketSubtype"    column="ticket_subtype"    />
+        <result property="ticketTitle"    column="ticket_title"    />
+        <result property="description"    column="description"    />
+        <result property="status"    column="status"    />
+        <result property="assignUserId"    column="assign_user_id"    />
+        <result property="businessType"    column="business_type"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonTicketVo">
+        select id, merchant_id, ticket_no, parent_ticket_id, ticket_type, ticket_subtype, ticket_title, description, status, assign_user_id, business_type, business_id, create_time, update_time from kton_ticket
+    </sql>
+
+    <select id="selectKtonTicketList" parameterType="KtonTicket" resultMap="KtonTicketResult">
+        <include refid="selectKtonTicketVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="ticketNo != null  and ticketNo != ''"> and ticket_no = #{ticketNo}</if>
+            <if test="parentTicketId != null "> and parent_ticket_id = #{parentTicketId}</if>
+            <if test="ticketType != null  and ticketType != ''"> and ticket_type = #{ticketType}</if>
+            <if test="ticketSubtype != null  and ticketSubtype != ''"> and ticket_subtype = #{ticketSubtype}</if>
+            <if test="ticketTitle != null  and ticketTitle != ''"> and ticket_title = #{ticketTitle}</if>
+            <if test="description != null  and description != ''"> and description = #{description}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="assignUserId != null "> and assign_user_id = #{assignUserId}</if>
+            <if test="businessType != null  and businessType != ''"> and business_type = #{businessType}</if>
+            <if test="businessId != null  and businessId != ''"> and business_id = #{businessId}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonTicketById" parameterType="Long" resultMap="KtonTicketResult">
+        <include refid="selectKtonTicketVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonTicket" parameterType="KtonTicket" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ticket
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="ticketNo != null and ticketNo != ''">ticket_no,</if>
+            <if test="parentTicketId != null">parent_ticket_id,</if>
+            <if test="ticketType != null and ticketType != ''">ticket_type,</if>
+            <if test="ticketSubtype != null">ticket_subtype,</if>
+            <if test="ticketTitle != null and ticketTitle != ''">ticket_title,</if>
+            <if test="description != null">description,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="assignUserId != null">assign_user_id,</if>
+            <if test="businessType != null">business_type,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="ticketNo != null and ticketNo != ''">#{ticketNo},</if>
+            <if test="parentTicketId != null">#{parentTicketId},</if>
+            <if test="ticketType != null and ticketType != ''">#{ticketType},</if>
+            <if test="ticketSubtype != null">#{ticketSubtype},</if>
+            <if test="ticketTitle != null and ticketTitle != ''">#{ticketTitle},</if>
+            <if test="description != null">#{description},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="assignUserId != null">#{assignUserId},</if>
+            <if test="businessType != null">#{businessType},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonTicket" parameterType="KtonTicket">
+        update kton_ticket
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="ticketNo != null and ticketNo != ''">ticket_no = #{ticketNo},</if>
+            <if test="parentTicketId != null">parent_ticket_id = #{parentTicketId},</if>
+            <if test="ticketType != null and ticketType != ''">ticket_type = #{ticketType},</if>
+            <if test="ticketSubtype != null">ticket_subtype = #{ticketSubtype},</if>
+            <if test="ticketTitle != null and ticketTitle != ''">ticket_title = #{ticketTitle},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="assignUserId != null">assign_user_id = #{assignUserId},</if>
+            <if test="businessType != null">business_type = #{businessType},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonTicketById" parameterType="Long">
+        delete from kton_ticket where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonTicketByIds" parameterType="String">
+        delete from kton_ticket where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

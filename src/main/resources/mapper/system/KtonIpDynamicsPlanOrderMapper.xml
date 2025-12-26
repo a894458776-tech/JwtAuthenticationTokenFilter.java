@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsPlanOrderMapper">
+    
+    <resultMap type="KtonIpDynamicsPlanOrder" id="KtonIpDynamicsPlanOrderResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="planName"    column="plan_name"    />
+        <result property="planTrafficGb"    column="plan_traffic_gb"    />
+        <result property="expirationDate"    column="expiration_date"    />
+        <result property="expired"    column="expired"    />
+        <result property="price"    column="price"    />
+        <result property="pricePerGb"    column="price_per_gb"    />
+        <result property="planTypeId"    column="plan_type_id"    />
+        <result property="planResidueTrafficGb"    column="plan_residue_traffic_gb"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsPlanOrderVo">
+        select id, merchant_id, plan_name, plan_traffic_gb, expiration_date, expired, price, price_per_gb, plan_type_id, plan_residue_traffic_gb, create_time, update_time from kton_ip_dynamics_plan_order
+    </sql>
+
+    <select id="selectKtonIpDynamicsPlanOrderList" parameterType="KtonIpDynamicsPlanOrder" resultMap="KtonIpDynamicsPlanOrderResult">
+        <include refid="selectKtonIpDynamicsPlanOrderVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="planName != null  and planName != ''"> and plan_name like concat('%', #{planName}, '%')</if>
+            <if test="planTrafficGb != null "> and plan_traffic_gb = #{planTrafficGb}</if>
+            <if test="expirationDate != null "> and expiration_date = #{expirationDate}</if>
+            <if test="expired != null "> and expired = #{expired}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="pricePerGb != null "> and price_per_gb = #{pricePerGb}</if>
+            <if test="planTypeId != null "> and plan_type_id = #{planTypeId}</if>
+            <if test="planResidueTrafficGb != null "> and plan_residue_traffic_gb = #{planResidueTrafficGb}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsPlanOrderById" parameterType="Long" resultMap="KtonIpDynamicsPlanOrderResult">
+        <include refid="selectKtonIpDynamicsPlanOrderVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsPlanOrder" parameterType="KtonIpDynamicsPlanOrder">
+        insert into kton_ip_dynamics_plan_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="planName != null and planName != ''">plan_name,</if>
+            <if test="planTrafficGb != null">plan_traffic_gb,</if>
+            <if test="expirationDate != null">expiration_date,</if>
+            <if test="expired != null">expired,</if>
+            <if test="price != null">price,</if>
+            <if test="pricePerGb != null">price_per_gb,</if>
+            <if test="planTypeId != null">plan_type_id,</if>
+            <if test="planResidueTrafficGb != null">plan_residue_traffic_gb,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="planName != null and planName != ''">#{planName},</if>
+            <if test="planTrafficGb != null">#{planTrafficGb},</if>
+            <if test="expirationDate != null">#{expirationDate},</if>
+            <if test="expired != null">#{expired},</if>
+            <if test="price != null">#{price},</if>
+            <if test="pricePerGb != null">#{pricePerGb},</if>
+            <if test="planTypeId != null">#{planTypeId},</if>
+            <if test="planResidueTrafficGb != null">#{planResidueTrafficGb},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsPlanOrder" parameterType="KtonIpDynamicsPlanOrder">
+        update kton_ip_dynamics_plan_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="planName != null and planName != ''">plan_name = #{planName},</if>
+            <if test="planTrafficGb != null">plan_traffic_gb = #{planTrafficGb},</if>
+            <if test="expirationDate != null">expiration_date = #{expirationDate},</if>
+            <if test="expired != null">expired = #{expired},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="pricePerGb != null">price_per_gb = #{pricePerGb},</if>
+            <if test="planTypeId != null">plan_type_id = #{planTypeId},</if>
+            <if test="planResidueTrafficGb != null">plan_residue_traffic_gb = #{planResidueTrafficGb},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsPlanOrderById" parameterType="Long">
+        delete from kton_ip_dynamics_plan_order where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsPlanOrderByIds" parameterType="String">
+        delete from kton_ip_dynamics_plan_order where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

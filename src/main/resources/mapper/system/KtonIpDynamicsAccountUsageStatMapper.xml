@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsAccountUsageStatMapper">
+    
+    <resultMap type="KtonIpDynamicsAccountUsageStat" id="KtonIpDynamicsAccountUsageStatResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="accountId"    column="account_id"    />
+        <result property="dUsage"    column="d_usage"    />
+        <result property="requests"    column="requests"    />
+        <result property="traffic"    column="traffic"    />
+        <result property="extraTraffic"    column="extra_traffic"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsAccountUsageStatVo">
+        select id, merchant_id, account_id, d_usage, requests, traffic, extra_traffic, create_time, update_time from kton_ip_dynamics_account_usage_stat
+    </sql>
+
+    <select id="selectKtonIpDynamicsAccountUsageStatList" parameterType="KtonIpDynamicsAccountUsageStat" resultMap="KtonIpDynamicsAccountUsageStatResult">
+        <include refid="selectKtonIpDynamicsAccountUsageStatVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="accountId != null "> and account_id = #{accountId}</if>
+            <if test="dUsage != null "> and d_usage = #{dUsage}</if>
+            <if test="requests != null "> and requests = #{requests}</if>
+            <if test="traffic != null "> and traffic = #{traffic}</if>
+            <if test="extraTraffic != null "> and extra_traffic = #{extraTraffic}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsAccountUsageStatById" parameterType="Long" resultMap="KtonIpDynamicsAccountUsageStatResult">
+        <include refid="selectKtonIpDynamicsAccountUsageStatVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsAccountUsageStat" parameterType="KtonIpDynamicsAccountUsageStat" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_dynamics_account_usage_stat
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="dUsage != null">d_usage,</if>
+            <if test="requests != null">requests,</if>
+            <if test="traffic != null">traffic,</if>
+            <if test="extraTraffic != null">extra_traffic,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="dUsage != null">#{dUsage},</if>
+            <if test="requests != null">#{requests},</if>
+            <if test="traffic != null">#{traffic},</if>
+            <if test="extraTraffic != null">#{extraTraffic},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsAccountUsageStat" parameterType="KtonIpDynamicsAccountUsageStat">
+        update kton_ip_dynamics_account_usage_stat
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="dUsage != null">d_usage = #{dUsage},</if>
+            <if test="requests != null">requests = #{requests},</if>
+            <if test="traffic != null">traffic = #{traffic},</if>
+            <if test="extraTraffic != null">extra_traffic = #{extraTraffic},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsAccountUsageStatById" parameterType="Long">
+        delete from kton_ip_dynamics_account_usage_stat where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsAccountUsageStatByIds" parameterType="String">
+        delete from kton_ip_dynamics_account_usage_stat where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

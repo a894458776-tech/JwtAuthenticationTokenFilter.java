@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonOrderItemStaticMapper">
+    
+    <resultMap type="KtonOrderItemStatic" id="KtonOrderItemStaticResult">
+        <result property="id"    column="id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="orderType"    column="order_type"    />
+        <result property="poolId"    column="pool_id"    />
+        <result property="price"    column="price"    />
+        <result property="currency"    column="currency"    />
+        <result property="days"    column="days"    />
+        <result property="discount"    column="discount"    />
+        <result property="continent"    column="continent"    />
+        <result property="countryCode"    column="country_code"    />
+        <result property="location"    column="location"    />
+        <result property="ip"    column="ip"    />
+        <result property="protocolse"    column="protocolse"    />
+        <result property="effectiveDatetime"    column="effective_datetime"    />
+        <result property="expireDatetime"    column="expire_datetime"    />
+        <result property="unsubscribeTime"    column="unsubscribe_time"    />
+        <result property="account"    column="account"    />
+        <result property="password"    column="password"    />
+        <result property="port"    column="port"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonOrderItemStaticVo">
+        select id, order_id, order_type, pool_id, price, currency, days, discount, continent, country_code, location, ip, protocolse, effective_datetime, expire_datetime, unsubscribe_time, account, password, port, status, create_time, update_time from kton_order_item_static
+    </sql>
+
+    <select id="selectKtonOrderItemStaticList" parameterType="KtonOrderItemStatic" resultMap="KtonOrderItemStaticResult">
+        <include refid="selectKtonOrderItemStaticVo"/>
+        <where>  
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="orderType != null "> and order_type = #{orderType}</if>
+            <if test="poolId != null "> and pool_id = #{poolId}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="currency != null  and currency != ''"> and currency = #{currency}</if>
+            <if test="days != null "> and days = #{days}</if>
+            <if test="discount != null "> and discount = #{discount}</if>
+            <if test="continent != null  and continent != ''"> and continent = #{continent}</if>
+            <if test="countryCode != null  and countryCode != ''"> and country_code = #{countryCode}</if>
+            <if test="location != null  and location != ''"> and location = #{location}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="protocolse != null  and protocolse != ''"> and protocolse = #{protocolse}</if>
+            <if test="effectiveDatetime != null "> and effective_datetime = #{effectiveDatetime}</if>
+            <if test="expireDatetime != null "> and expire_datetime = #{expireDatetime}</if>
+            <if test="unsubscribeTime != null "> and unsubscribe_time = #{unsubscribeTime}</if>
+            <if test="account != null  and account != ''"> and account = #{account}</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="port != null  and port != ''"> and port = #{port}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonOrderItemStaticById" parameterType="Long" resultMap="KtonOrderItemStaticResult">
+        <include refid="selectKtonOrderItemStaticVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonOrderItemStatic" parameterType="KtonOrderItemStatic" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_order_item_static
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="orderType != null">order_type,</if>
+            <if test="poolId != null">pool_id,</if>
+            <if test="price != null">price,</if>
+            <if test="currency != null">currency,</if>
+            <if test="days != null">days,</if>
+            <if test="discount != null">discount,</if>
+            <if test="continent != null and continent != ''">continent,</if>
+            <if test="countryCode != null and countryCode != ''">country_code,</if>
+            <if test="location != null and location != ''">location,</if>
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="protocolse != null">protocolse,</if>
+            <if test="effectiveDatetime != null">effective_datetime,</if>
+            <if test="expireDatetime != null">expire_datetime,</if>
+            <if test="unsubscribeTime != null">unsubscribe_time,</if>
+            <if test="account != null">account,</if>
+            <if test="password != null">password,</if>
+            <if test="port != null">port,</if>
+            <if test="status != null and status != ''">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">#{orderId},</if>
+            <if test="orderType != null">#{orderType},</if>
+            <if test="poolId != null">#{poolId},</if>
+            <if test="price != null">#{price},</if>
+            <if test="currency != null">#{currency},</if>
+            <if test="days != null">#{days},</if>
+            <if test="discount != null">#{discount},</if>
+            <if test="continent != null and continent != ''">#{continent},</if>
+            <if test="countryCode != null and countryCode != ''">#{countryCode},</if>
+            <if test="location != null and location != ''">#{location},</if>
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="protocolse != null">#{protocolse},</if>
+            <if test="effectiveDatetime != null">#{effectiveDatetime},</if>
+            <if test="expireDatetime != null">#{expireDatetime},</if>
+            <if test="unsubscribeTime != null">#{unsubscribeTime},</if>
+            <if test="account != null">#{account},</if>
+            <if test="password != null">#{password},</if>
+            <if test="port != null">#{port},</if>
+            <if test="status != null and status != ''">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonOrderItemStatic" parameterType="KtonOrderItemStatic">
+        update kton_order_item_static
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="orderType != null">order_type = #{orderType},</if>
+            <if test="poolId != null">pool_id = #{poolId},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="currency != null">currency = #{currency},</if>
+            <if test="days != null">days = #{days},</if>
+            <if test="discount != null">discount = #{discount},</if>
+            <if test="continent != null and continent != ''">continent = #{continent},</if>
+            <if test="countryCode != null and countryCode != ''">country_code = #{countryCode},</if>
+            <if test="location != null and location != ''">location = #{location},</if>
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="protocolse != null">protocolse = #{protocolse},</if>
+            <if test="effectiveDatetime != null">effective_datetime = #{effectiveDatetime},</if>
+            <if test="expireDatetime != null">expire_datetime = #{expireDatetime},</if>
+            <if test="unsubscribeTime != null">unsubscribe_time = #{unsubscribeTime},</if>
+            <if test="account != null">account = #{account},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="port != null">port = #{port},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonOrderItemStaticById" parameterType="Long">
+        delete from kton_order_item_static where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonOrderItemStaticByIds" parameterType="String">
+        delete from kton_order_item_static where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

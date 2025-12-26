@@ -1,0 +1,12 @@
+00:41:35.040 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+01:01:24.169 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+01:04:24.356 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+03:14:27.424 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+03:20:33.025 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+04:53:19.229 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[ziniao][Logout][退出成功]
+04:53:28.023 [schedule-pool-2] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[s5yuantou][Success][登录成功]
+16:34:57.416 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+16:38:09.066 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+16:41:02.306 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[admin][Error][No message found under code 'user.password.not.match' for locale 'zh_CN'.]
+16:41:38.891 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[admin][Success][登录成功]
+16:43:29.169 [schedule-pool-2] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[s5yuantou][Success][登录成功]

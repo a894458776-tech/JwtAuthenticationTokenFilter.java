@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonClusterStatisVpsMapper">
+    
+    <resultMap type="KtonClusterStatisVps" id="KtonClusterStatisVpsResult">
+        <result property="id"    column="id"    />
+        <result property="countHost"    column="count_host"    />
+        <result property="countIpTotal"    column="count_ip_total"    />
+        <result property="countIpUsed"    column="count_ip_used"    />
+        <result property="countContainer"    column="count_container"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonClusterStatisVpsVo">
+        select id, count_host, count_ip_total, count_ip_used, count_container, create_time, update_time from kton_cluster_statis_vps
+    </sql>
+
+    <select id="selectKtonClusterStatisVpsList" parameterType="KtonClusterStatisVps" resultMap="KtonClusterStatisVpsResult">
+        <include refid="selectKtonClusterStatisVpsVo"/>
+        <where>  
+            <if test="countHost != null "> and count_host = #{countHost}</if>
+            <if test="countIpTotal != null "> and count_ip_total = #{countIpTotal}</if>
+            <if test="countIpUsed != null "> and count_ip_used = #{countIpUsed}</if>
+            <if test="countContainer != null "> and count_container = #{countContainer}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonClusterStatisVpsById" parameterType="Long" resultMap="KtonClusterStatisVpsResult">
+        <include refid="selectKtonClusterStatisVpsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonClusterStatisVps" parameterType="KtonClusterStatisVps" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_cluster_statis_vps
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="countHost != null">count_host,</if>
+            <if test="countIpTotal != null">count_ip_total,</if>
+            <if test="countIpUsed != null">count_ip_used,</if>
+            <if test="countContainer != null">count_container,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="countHost != null">#{countHost},</if>
+            <if test="countIpTotal != null">#{countIpTotal},</if>
+            <if test="countIpUsed != null">#{countIpUsed},</if>
+            <if test="countContainer != null">#{countContainer},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonClusterStatisVps" parameterType="KtonClusterStatisVps">
+        update kton_cluster_statis_vps
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="countHost != null">count_host = #{countHost},</if>
+            <if test="countIpTotal != null">count_ip_total = #{countIpTotal},</if>
+            <if test="countIpUsed != null">count_ip_used = #{countIpUsed},</if>
+            <if test="countContainer != null">count_container = #{countContainer},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonClusterStatisVpsById" parameterType="Long">
+        delete from kton_cluster_statis_vps where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonClusterStatisVpsByIds" parameterType="String">
+        delete from kton_cluster_statis_vps where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

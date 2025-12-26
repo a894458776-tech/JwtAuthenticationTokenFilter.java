@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMessageRecordsMapper">
+    
+    <resultMap type="KtonMessageRecords" id="KtonMessageRecordsResult">
+        <result property="id"    column="id"    />
+        <result property="content"    column="content"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="messageType"    column="message_type"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMessageRecordsVo">
+        select id, content, source_id, message_type, create_time, update_time from kton_message_records
+    </sql>
+
+    <select id="selectKtonMessageRecordsList" parameterType="KtonMessageRecords" resultMap="KtonMessageRecordsResult">
+        <include refid="selectKtonMessageRecordsVo"/>
+        <where>  
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="sourceId != null  and sourceId != ''"> and source_id = #{sourceId}</if>
+            <if test="messageType != null  and messageType != ''"> and message_type = #{messageType}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMessageRecordsById" parameterType="Long" resultMap="KtonMessageRecordsResult">
+        <include refid="selectKtonMessageRecordsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonMessageRecords" parameterType="KtonMessageRecords" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_message_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="content != null">content,</if>
+            <if test="sourceId != null">source_id,</if>
+            <if test="messageType != null">message_type,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="content != null">#{content},</if>
+            <if test="sourceId != null">#{sourceId},</if>
+            <if test="messageType != null">#{messageType},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMessageRecords" parameterType="KtonMessageRecords">
+        update kton_message_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="content != null">content = #{content},</if>
+            <if test="sourceId != null">source_id = #{sourceId},</if>
+            <if test="messageType != null">message_type = #{messageType},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonMessageRecordsById" parameterType="Long">
+        delete from kton_message_records where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonMessageRecordsByIds" parameterType="String">
+        delete from kton_message_records where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpDynamicsAccountEndpointMapper">
+    
+    <resultMap type="KtonIpDynamicsAccountEndpoint" id="KtonIpDynamicsAccountEndpointResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="accountId"    column="account_id"    />
+        <result property="endpointHost"    column="endpoint_host"    />
+        <result property="endpointPort"    column="endpoint_port"    />
+        <result property="endpointStatus"    column="endpoint_status"    />
+        <result property="expireTime"    column="expire_time"    />
+        <result property="useTrafficGb"    column="use_traffic_gb"    />
+        <result property="limitTrafficGb"    column="limit_traffic_gb"    />
+        <result property="supportedProtocol"    column="supported_protocol"    />
+        <result property="remarks"    column="remarks"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpDynamicsAccountEndpointVo">
+        select id, merchant_id, account_id, endpoint_host, endpoint_port, endpoint_status, expire_time, use_traffic_gb, limit_traffic_gb, supported_protocol, remarks, create_time, update_time from kton_ip_dynamics_account_endpoint
+    </sql>
+
+    <select id="selectKtonIpDynamicsAccountEndpointList" parameterType="KtonIpDynamicsAccountEndpoint" resultMap="KtonIpDynamicsAccountEndpointResult">
+        <include refid="selectKtonIpDynamicsAccountEndpointVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="accountId != null "> and account_id = #{accountId}</if>
+            <if test="endpointHost != null  and endpointHost != ''"> and endpoint_host = #{endpointHost}</if>
+            <if test="endpointPort != null "> and endpoint_port = #{endpointPort}</if>
+            <if test="endpointStatus != null "> and endpoint_status = #{endpointStatus}</if>
+            <if test="expireTime != null "> and expire_time = #{expireTime}</if>
+            <if test="useTrafficGb != null "> and use_traffic_gb = #{useTrafficGb}</if>
+            <if test="limitTrafficGb != null "> and limit_traffic_gb = #{limitTrafficGb}</if>
+            <if test="supportedProtocol != null  and supportedProtocol != ''"> and supported_protocol = #{supportedProtocol}</if>
+            <if test="remarks != null  and remarks != ''"> and remarks = #{remarks}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpDynamicsAccountEndpointById" parameterType="Long" resultMap="KtonIpDynamicsAccountEndpointResult">
+        <include refid="selectKtonIpDynamicsAccountEndpointVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpDynamicsAccountEndpoint" parameterType="KtonIpDynamicsAccountEndpoint">
+        insert into kton_ip_dynamics_account_endpoint
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="accountId != null">account_id,</if>
+            <if test="endpointHost != null and endpointHost != ''">endpoint_host,</if>
+            <if test="endpointPort != null">endpoint_port,</if>
+            <if test="endpointStatus != null">endpoint_status,</if>
+            <if test="expireTime != null">expire_time,</if>
+            <if test="useTrafficGb != null">use_traffic_gb,</if>
+            <if test="limitTrafficGb != null">limit_traffic_gb,</if>
+            <if test="supportedProtocol != null">supported_protocol,</if>
+            <if test="remarks != null">remarks,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="accountId != null">#{accountId},</if>
+            <if test="endpointHost != null and endpointHost != ''">#{endpointHost},</if>
+            <if test="endpointPort != null">#{endpointPort},</if>
+            <if test="endpointStatus != null">#{endpointStatus},</if>
+            <if test="expireTime != null">#{expireTime},</if>
+            <if test="useTrafficGb != null">#{useTrafficGb},</if>
+            <if test="limitTrafficGb != null">#{limitTrafficGb},</if>
+            <if test="supportedProtocol != null">#{supportedProtocol},</if>
+            <if test="remarks != null">#{remarks},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpDynamicsAccountEndpoint" parameterType="KtonIpDynamicsAccountEndpoint">
+        update kton_ip_dynamics_account_endpoint
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="accountId != null">account_id = #{accountId},</if>
+            <if test="endpointHost != null and endpointHost != ''">endpoint_host = #{endpointHost},</if>
+            <if test="endpointPort != null">endpoint_port = #{endpointPort},</if>
+            <if test="endpointStatus != null">endpoint_status = #{endpointStatus},</if>
+            <if test="expireTime != null">expire_time = #{expireTime},</if>
+            <if test="useTrafficGb != null">use_traffic_gb = #{useTrafficGb},</if>
+            <if test="limitTrafficGb != null">limit_traffic_gb = #{limitTrafficGb},</if>
+            <if test="supportedProtocol != null">supported_protocol = #{supportedProtocol},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpDynamicsAccountEndpointById" parameterType="Long">
+        delete from kton_ip_dynamics_account_endpoint where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpDynamicsAccountEndpointByIds" parameterType="String">
+        delete from kton_ip_dynamics_account_endpoint where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

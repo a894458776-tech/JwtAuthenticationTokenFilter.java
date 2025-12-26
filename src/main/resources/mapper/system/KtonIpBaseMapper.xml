@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpBaseMapper">
+    
+    <resultMap type="KtonIpBase" id="KtonIpBaseResult">
+        <result property="id"    column="id"    />
+        <result property="ip"    column="ip"    />
+        <result property="datasource"    column="datasource"    />
+        <result property="countryCode"    column="country_code"    />
+        <result property="province"    column="province"    />
+        <result property="city"    column="city"    />
+        <result property="asn"    column="asn"    />
+        <result property="asnBelong"    column="asn_belong"    />
+        <result property="asnBelongUrl"    column="asn_belong_url"    />
+        <result property="asnIsIsp"    column="asn_is_isp"    />
+        <result property="company"    column="company"    />
+        <result property="companyUrl"    column="company_url"    />
+        <result property="companyIsIsp"    column="company_is_isp"    />
+        <result property="latitude"    column="latitude"    />
+        <result property="longitude"    column="longitude"    />
+        <result property="ipType"    column="ip_type"    />
+        <result property="riskValue"    column="risk_value"    />
+        <result property="isNative"    column="is_native"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpBaseVo">
+        select id, ip, datasource, country_code, province, city, asn, asn_belong, asn_belong_url, asn_is_isp, company, company_url, company_is_isp, latitude, longitude, ip_type, risk_value, is_native, create_time, update_time from kton_ip_base
+    </sql>
+
+    <select id="selectKtonIpBaseList" parameterType="KtonIpBase" resultMap="KtonIpBaseResult">
+        <include refid="selectKtonIpBaseVo"/>
+        <where>  
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="datasource != null  and datasource != ''"> and datasource = #{datasource}</if>
+            <if test="countryCode != null  and countryCode != ''"> and country_code = #{countryCode}</if>
+            <if test="province != null  and province != ''"> and province = #{province}</if>
+            <if test="city != null  and city != ''"> and city = #{city}</if>
+            <if test="asn != null  and asn != ''"> and asn = #{asn}</if>
+            <if test="asnBelong != null  and asnBelong != ''"> and asn_belong = #{asnBelong}</if>
+            <if test="asnBelongUrl != null  and asnBelongUrl != ''"> and asn_belong_url = #{asnBelongUrl}</if>
+            <if test="asnIsIsp != null "> and asn_is_isp = #{asnIsIsp}</if>
+            <if test="company != null  and company != ''"> and company = #{company}</if>
+            <if test="companyUrl != null  and companyUrl != ''"> and company_url = #{companyUrl}</if>
+            <if test="companyIsIsp != null "> and company_is_isp = #{companyIsIsp}</if>
+            <if test="latitude != null "> and latitude = #{latitude}</if>
+            <if test="longitude != null "> and longitude = #{longitude}</if>
+            <if test="ipType != null  and ipType != ''"> and ip_type = #{ipType}</if>
+            <if test="riskValue != null "> and risk_value = #{riskValue}</if>
+            <if test="isNative != null "> and is_native = #{isNative}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonIpBaseById" parameterType="String" resultMap="KtonIpBaseResult">
+        <include refid="selectKtonIpBaseVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpBase" parameterType="KtonIpBase" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_base
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="datasource != null and datasource != ''">datasource,</if>
+            <if test="countryCode != null">country_code,</if>
+            <if test="province != null">province,</if>
+            <if test="city != null">city,</if>
+            <if test="asn != null">asn,</if>
+            <if test="asnBelong != null">asn_belong,</if>
+            <if test="asnBelongUrl != null">asn_belong_url,</if>
+            <if test="asnIsIsp != null">asn_is_isp,</if>
+            <if test="company != null">company,</if>
+            <if test="companyUrl != null">company_url,</if>
+            <if test="companyIsIsp != null">company_is_isp,</if>
+            <if test="latitude != null">latitude,</if>
+            <if test="longitude != null">longitude,</if>
+            <if test="ipType != null">ip_type,</if>
+            <if test="riskValue != null">risk_value,</if>
+            <if test="isNative != null">is_native,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="datasource != null and datasource != ''">#{datasource},</if>
+            <if test="countryCode != null">#{countryCode},</if>
+            <if test="province != null">#{province},</if>
+            <if test="city != null">#{city},</if>
+            <if test="asn != null">#{asn},</if>
+            <if test="asnBelong != null">#{asnBelong},</if>
+            <if test="asnBelongUrl != null">#{asnBelongUrl},</if>
+            <if test="asnIsIsp != null">#{asnIsIsp},</if>
+            <if test="company != null">#{company},</if>
+            <if test="companyUrl != null">#{companyUrl},</if>
+            <if test="companyIsIsp != null">#{companyIsIsp},</if>
+            <if test="latitude != null">#{latitude},</if>
+            <if test="longitude != null">#{longitude},</if>
+            <if test="ipType != null">#{ipType},</if>
+            <if test="riskValue != null">#{riskValue},</if>
+            <if test="isNative != null">#{isNative},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpBase" parameterType="KtonIpBase">
+        update kton_ip_base
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="datasource != null and datasource != ''">datasource = #{datasource},</if>
+            <if test="countryCode != null">country_code = #{countryCode},</if>
+            <if test="province != null">province = #{province},</if>
+            <if test="city != null">city = #{city},</if>
+            <if test="asn != null">asn = #{asn},</if>
+            <if test="asnBelong != null">asn_belong = #{asnBelong},</if>
+            <if test="asnBelongUrl != null">asn_belong_url = #{asnBelongUrl},</if>
+            <if test="asnIsIsp != null">asn_is_isp = #{asnIsIsp},</if>
+            <if test="company != null">company = #{company},</if>
+            <if test="companyUrl != null">company_url = #{companyUrl},</if>
+            <if test="companyIsIsp != null">company_is_isp = #{companyIsIsp},</if>
+            <if test="latitude != null">latitude = #{latitude},</if>
+            <if test="longitude != null">longitude = #{longitude},</if>
+            <if test="ipType != null">ip_type = #{ipType},</if>
+            <if test="riskValue != null">risk_value = #{riskValue},</if>
+            <if test="isNative != null">is_native = #{isNative},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpBaseById" parameterType="String">
+        delete from kton_ip_base where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpBaseByIds" parameterType="String">
+        delete from kton_ip_base where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

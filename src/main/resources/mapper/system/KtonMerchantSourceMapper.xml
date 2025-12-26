@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonMerchantSourceMapper">
+    
+    <resultMap type="KtonMerchantSource" id="KtonMerchantSourceResult">
+        <result property="id"    column="id"    />
+        <result property="merchantId"    column="merchant_id"    />
+        <result property="ipType"    column="ip_type"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="weight"    column="weight"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonMerchantSourceVo">
+        select id, merchant_id, ip_type, source_id, weight, create_time, update_time from kton_merchant_source
+    </sql>
+
+    <select id="selectKtonMerchantSourceList" parameterType="KtonMerchantSource" resultMap="KtonMerchantSourceResult">
+        <include refid="selectKtonMerchantSourceVo"/>
+        <where>  
+            <if test="merchantId != null "> and merchant_id = #{merchantId}</if>
+            <if test="ipType != null  and ipType != ''"> and ip_type = #{ipType}</if>
+            <if test="sourceId != null "> and source_id = #{sourceId}</if>
+            <if test="weight != null "> and weight = #{weight}</if>
+        </where>
+    </select>
+    
+    <select id="selectKtonMerchantSourceById" parameterType="Long" resultMap="KtonMerchantSourceResult">
+        <include refid="selectKtonMerchantSourceVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonMerchantSource" parameterType="KtonMerchantSource" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_merchant_source
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id,</if>
+            <if test="ipType != null and ipType != ''">ip_type,</if>
+            <if test="sourceId != null">source_id,</if>
+            <if test="weight != null">weight,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="merchantId != null">#{merchantId},</if>
+            <if test="ipType != null and ipType != ''">#{ipType},</if>
+            <if test="sourceId != null">#{sourceId},</if>
+            <if test="weight != null">#{weight},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonMerchantSource" parameterType="KtonMerchantSource">
+        update kton_merchant_source
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="merchantId != null">merchant_id = #{merchantId},</if>
+            <if test="ipType != null and ipType != ''">ip_type = #{ipType},</if>
+            <if test="sourceId != null">source_id = #{sourceId},</if>
+            <if test="weight != null">weight = #{weight},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonMerchantSourceById" parameterType="Long">
+        delete from kton_merchant_source where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonMerchantSourceByIds" parameterType="String">
+        delete from kton_merchant_source where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

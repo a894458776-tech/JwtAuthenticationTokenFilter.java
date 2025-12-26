@@ -1,0 +1,9 @@
+00:27:20.915 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+00:48:34.413 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+00:51:30.622 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+00:57:38.274 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+01:03:35.199 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+01:13:58.684 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====
+01:38:13.103 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[s5yuantou][Logout][退出成功]
+01:38:17.625 [schedule-pool-1] INFO  sys-user - [run,53] - [127.0.0.1]内网IP[s5yuantou][Success][登录成功]
+19:49:34.640 [SpringApplicationShutdownHook] INFO  sys-user - [shutdownAsyncManager,29] - ====关闭后台任务任务线程池====

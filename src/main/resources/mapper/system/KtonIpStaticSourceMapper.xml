@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kylin.kton.system.mapper.KtonIpStaticSourceMapper">
+
+    <resultMap type="KtonIpStaticSource" id="KtonIpStaticSourceResult">
+        <result property="id"    column="id"    />
+        <result property="sourceId"    column="source_id"    />
+        <result property="ip"    column="ip"    />
+        <result property="port"    column="port"    />
+        <result property="account"    column="account"    />
+        <result property="password"    column="password"    />
+        <result property="protocolse"    column="protocolse"    />
+        <result property="effectiveDatetime"    column="effective_datetime"    />
+        <result property="expireDatetime"    column="expire_datetime"    />
+        <result property="assignTimes"    column="assign_times"    />
+        <result property="status"    column="status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectKtonIpStaticSourceVo">
+        select id, source_id, ip, port, account, password, protocolse, effective_datetime, expire_datetime, assign_times, status, create_time, update_time from kton_ip_static_source
+    </sql>
+
+    <select id="selectKtonIpStaticSourceList" parameterType="KtonIpStaticSource" resultMap="KtonIpStaticSourceResult">
+        <include refid="selectKtonIpStaticSourceVo"/>
+        <where>
+            <if test="sourceId != null "> and source_id = #{sourceId}</if>
+            <if test="ip != null  and ip != ''"> and ip = #{ip}</if>
+            <if test="port != null  and port != ''"> and port = #{port}</if>
+            <if test="account != null  and account != ''"> and account = #{account}</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="protocolse != null  and protocolse != ''"> and protocolse = #{protocolse}</if>
+            <if test="effectiveDatetime != null "> and effective_datetime = #{effectiveDatetime}</if>
+            <if test="expireDatetime != null "> and expire_datetime = #{expireDatetime}</if>
+            <if test="assignTimes != null "> and assign_times = #{assignTimes}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+
+    <select id="selectKtonIpStaticSourceById" parameterType="Long" resultMap="KtonIpStaticSourceResult">
+        <include refid="selectKtonIpStaticSourceVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertKtonIpStaticSource" parameterType="KtonIpStaticSource" useGeneratedKeys="true" keyProperty="id">
+        insert into kton_ip_static_source
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="sourceId != null">source_id,</if>
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="port != null and port != ''">port,</if>
+            <if test="account != null and account != ''">account,</if>
+            <if test="password != null and password != ''">password,</if>
+            <if test="protocolse != null">protocolse,</if>
+            <if test="effectiveDatetime != null">effective_datetime,</if>
+            <if test="expireDatetime != null">expire_datetime,</if>
+            <if test="assignTimes != null">assign_times,</if>
+            <if test="status != null">status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="sourceId != null">#{sourceId},</if>
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="port != null and port != ''">#{port},</if>
+            <if test="account != null and account != ''">#{account},</if>
+            <if test="password != null and password != ''">#{password},</if>
+            <if test="protocolse != null">#{protocolse},</if>
+            <if test="effectiveDatetime != null">#{effectiveDatetime},</if>
+            <if test="expireDatetime != null">#{expireDatetime},</if>
+            <if test="assignTimes != null">#{assignTimes},</if>
+            <if test="status != null">#{status},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKtonIpStaticSource" parameterType="KtonIpStaticSource">
+        update kton_ip_static_source
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="sourceId != null">source_id = #{sourceId},</if>
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="port != null and port != ''">port = #{port},</if>
+            <if test="account != null and account != ''">account = #{account},</if>
+            <if test="password != null and password != ''">password = #{password},</if>
+            <if test="protocolse != null">protocolse = #{protocolse},</if>
+            <if test="effectiveDatetime != null">effective_datetime = #{effectiveDatetime},</if>
+            <if test="expireDatetime != null">expire_datetime = #{expireDatetime},</if>
+            <if test="assignTimes != null">assign_times = #{assignTimes},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKtonIpStaticSourceById" parameterType="Long">
+        delete from kton_ip_static_source where id = #{id}
+    </delete>
+
+    <delete id="deleteKtonIpStaticSourceByIds" parameterType="String">
+        delete from kton_ip_static_source where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
